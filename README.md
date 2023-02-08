@@ -1,9 +1,9 @@
 # ShotFinder
-> App for storing and searching movie frames.
+> ShotFinder is an Next.js app that allows you to store and organize frames from your favorite movies. With its user-friendly interface and advanced filtering and search capabilities, finding that perfect shot has never been easier. Simply add frames to your collection and categorize them by film, scene, or any other criteria you choose. Then, use the app's powerful search functions to quickly find the shots you need. Whether you're a filmmaker, film enthusiast, or just looking for a way to save and recall your favorite movie moments, ShotFinder is the perfect tool for you. So start building your collection today and never miss a shot!
 
 ![License][license-image]  ![Stars][stars-image]
 
-App for storing and searching movie frames.
+ShotFinder also allows you to upload and categorize your own movies, giving you complete control over your collection. With the ability to self-host and store your data locally, you can be sure that your movie frames are always accessible and secure. 
 
 ![image](artifacts/npx.png)
 
