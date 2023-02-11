@@ -16,6 +16,15 @@ export default function Home() {
             <Link href="/upload">Upload</Link>
           </div>
         </div>
+
+        <div className="row mt-5">
+          <div className="col col-6 offset-md-3">
+            <label for="filter" className="form-label">Search:</label>
+            <input type="text" name="filter" id="" data-role="tagsinput" className='form-control' />
+          </div>
+        </div>
+
+        {/* show output */}
       </div>
     </main>
   )
