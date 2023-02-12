@@ -23,7 +23,12 @@ export default function Home() {
             <input type="text" name="filter" id="" data-role="tagsinput" className='form-control' />
           </div>
         </div>
-
+        <div className="row">
+          <p>Results:</p>
+          <pre>
+            []
+          </pre>
+        </div>
         {/* show output */}
       </div>
     </main>
