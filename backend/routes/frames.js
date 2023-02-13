@@ -21,6 +21,7 @@ router.get('/:id', getFrame, (req,res) =>{
 
 //create one
 router.post('/', async (req,res) =>{
+    console.log(req.body);
     const frame = new Frame({
         name: req.body.name,
         filmName: req.body.filmName,

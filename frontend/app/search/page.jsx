@@ -3,7 +3,9 @@ import { Inter } from '@next/font/google'
 import Link from 'next/link'
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home() {
+export default async function Search() {
+  const data = await fetch('http://localhost:3001/frames')
+  const res = await data.json()
   return (
     <main>
       <div className="container">
@@ -19,17 +21,21 @@ export default function Home() {
 
         <div className="row mt-5">
           <div className="col col-6 offset-md-3">
-            <label for="filter" className="form-label">Search:</label>
+           
+            <label  className="form-label">Search: </label>
             <input type="text" name="filter" id="" data-role="tagsinput" className='form-control' />
           </div>
         </div>
         <div className="row">
           <p>Results:</p>
           <pre>
-            []
+            {res.map((frame) => (
+              frame.name+ " \n\t" +
+              frame.filmName+ " \n\t" +
+              frame.frameURL+ " \n" 
+            ))}
           </pre>
         </div>
-        {/* show output */}
       </div>
     </main>
   )
