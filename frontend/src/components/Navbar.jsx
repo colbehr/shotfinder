@@ -1,14 +1,14 @@
 import { NavLink } from "react-router-dom";
+import SearchBar from "./SearchBar";
 
 export default function Navbar(){
     let activeStyle = {
         textDecoration: "underline",
     };
 
-    let activeClassName = "underline";
-
     return <nav className="nav">
         <a href="/" className="site-title">Logo</a>
+        <SearchBar/>
         <ul>
             <li>
                 <NavLink
