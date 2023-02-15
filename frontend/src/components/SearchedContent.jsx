@@ -3,7 +3,7 @@ import SearchedContentItem from './SearchedContentItem'
 
 export default function SearchedContent( {content}) {
   return (
-    <>
+    <div className='searchedContentContainer'>
       {/* array of searchedcontentitems */}
 
       {content.map(item => {
@@ -12,6 +12,6 @@ export default function SearchedContent( {content}) {
                 url={item.frameURL}
                 filmName={item.filmName}/>
       })}
-    </>
+    </div>
   )
 }

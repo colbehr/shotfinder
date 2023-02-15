@@ -1,5 +1,5 @@
 # ShotFinder
-> ShotFinder is an Next.js app that allows you to store and organize frames from your favorite movies. With its user-friendly interface and advanced filtering and search capabilities, finding that perfect shot has never been easier. Simply add frames to your collection and categorize them by film, scene, or any other criteria you choose. Then, use the app's powerful search functions to quickly find the shots you need. Whether you're a filmmaker, film enthusiast, or just looking for a way to save and recall your favorite movie moments, ShotFinder is the perfect tool for you. So start building your collection today and never miss a shot!
+> ShotFinder is an React.js app that allows you to store and organize frames from your favorite movies. With its user-friendly interface and advanced filtering and search capabilities, finding that perfect shot has never been easier. Simply add frames to your collection and categorize them by film, scene, or any other criteria you choose. Then, use the app's powerful search functions to quickly find the shots you need. Whether you're a filmmaker, film enthusiast, or just looking for a way to save and recall your favorite movie moments, ShotFinder is the perfect tool for you. So start building your collection today and never miss a shot!
 
 ![License][license-image]  ![Stars][stars-image]
 
@@ -24,13 +24,14 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
 
 ## Release History
 
 * 0.1.0
   * Initial build
+  * Initial Nav
+  * Basic content rendering
 
 
 <!-- Markdown link & img dfn's -->
