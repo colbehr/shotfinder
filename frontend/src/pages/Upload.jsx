@@ -1,3 +1,8 @@
+import UploadNavbar from '../components/UploadNavbar';
+
 export default function Upload(){
-    return <h1>Upload</h1>
+    return <>
+        <UploadNavbar/>
+        <h1>Upload</h1>
+    </>
 }

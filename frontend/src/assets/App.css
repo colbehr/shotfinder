@@ -36,8 +36,8 @@ body{
   text-decoration: none;
 }
 .App{
-  background-color: #2f3537;
-  height: 100vh;
+  background-color: #181A1B;
+  color: white;
 }
 
 .nav li:hover{
@@ -47,11 +47,10 @@ body{
 .searchedContentContainer{
   margin-top: 20px;
   display: inline-grid;
-  width: 100%;
-  height: 100%;
   gap: 15px;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   justify-items: center;
+  width: 100%;
 }
 
 .searchedContentItem{
@@ -107,7 +106,6 @@ body{
   width: 101%;
   opacity: 0;
   position: relative;
-  top: -37px;
 }
 
 .searchedContentItem .hoverContent:hover{
@@ -116,3 +114,7 @@ body{
 
 }
 
+.filterPanel{
+  height: 100vh;
+  background-color: #303536;
+}

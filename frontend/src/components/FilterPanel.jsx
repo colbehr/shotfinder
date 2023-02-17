@@ -1,7 +1,8 @@
 import React from 'react'
 
-export default function FilterPanel() {
+export default function FilterPanel( {search} ) {
   return (
-    <div>FilterPanel</div>
+    <div className='filterPanel'>FilterPanel: <h1>{search}</h1></div>
+    
   )
 }
