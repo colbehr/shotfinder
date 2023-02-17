@@ -19,18 +19,18 @@ export default function Search() {
   }, []);
 
   const [content, setContent] = useState([])
-  const [searchTerm, setSearchTerm] = useState("test")
+  const [searchTerm, setSearchTerm] = useState("")
   //filter content before display
   return <>
     {/* send setSearchTerm down to the searchbar component  */}
     <SearchNavbar setSearchTerm={setSearchTerm} />
-    <div className='row'>
-      <div className='col-3'>
+    <div className="container-fluid">
+      <div className='row'>
         <FilterPanel />
-      </div>
-      <div className='col-9'>
-        <h3 className='mt-3'>Search: {searchTerm}</h3>
-        <SearchedContent content={content} />
+        <div className='col-9'>
+          <h3 className='mt-3'>Search: {searchTerm}</h3>
+          <SearchedContent content={content} />
+        </div>
       </div>
     </div>
   </>
