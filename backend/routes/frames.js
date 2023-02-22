@@ -1,3 +1,4 @@
+const e = require('express')
 const express = require('express')
 const router = express.Router()
 const Frame = require('../models/frame')
@@ -7,6 +8,28 @@ const Frame = require('../models/frame')
 router.get('/', async (req,res) =>{
     try {
         const frames = await Frame.find()
+        res.json(frames)
+    } catch (error) {
+        res.status(500).json({message: error.message})
+    }
+})
+
+//search 
+router.get('/find', async (req,res) =>{
+    try {
+        const search = req.query.search || ""
+        let sort = req.query.sort || "uploadDate"
+
+        req.query.sort ? (sort = req.query.sort.split(",")) : (sort = [sort])
+            
+        let sortBy = {}
+        if (sort[1]){
+            sortBy[sort[0]] = sort[1]
+        }else {
+            sortBy[sort[0]] = "desc"
+        }
+        console.log(search, sortBy);
+        const frames = await Frame.find({title: {$regex:search, $options: 'i'}}).sort(sortBy)
         res.json(frames)
     } catch (error) {
         res.status(500).json({message: error.message})

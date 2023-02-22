@@ -23,7 +23,7 @@ export default function UploadForm1({ sendPostContent }) {
     }
     
     const [title, setTitle] = useState("");
-    const [year, setYear] = useState(2022);
+    const [year, setYear] = useState();
     const [imdb, setImdb] = useState("");
     const [type, setType] = useState("");
 

@@ -7,6 +7,15 @@ export async function getAllFrames(){
     }
 }
 
+export async function searchFrames(search){
+    try {
+        const res = await fetch('/frames/find?search='+search)
+        return await res.json()
+    } catch (error) {
+        return []
+    }
+}
+
 export async function postFrames(content){
     try {
         const options = {

@@ -16,12 +16,11 @@ app.use(express.json())
 const framesRouter = require('./routes/frames')
 app.use('/frames', framesRouter)
 
-
 /**
  * default route 
  */
 app.get('/', (req, res) => {
-    res.send('REST API routes: <a href="/frames">/frames</a> ')
+    res.send('REST API routes: <br><a href="/frames">/frames</a> <br> <a href="/find">/find</a> ')
 })
 
 

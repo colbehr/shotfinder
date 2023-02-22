@@ -3,7 +3,7 @@ import FilterPanel from '../components/FilterPanel';
 import SearchNavbar from '../components/SearchNavbar';
 
 import SearchedContent from '../components/SearchedContent'
-import { getAllFrames } from '../services/FrameService';
+import { getAllFrames, searchFrames } from '../services/FrameService';
 
 
 export default function Search() {
@@ -20,16 +20,21 @@ export default function Search() {
 
   const [content, setContent] = useState([])
   const [searchTerm, setSearchTerm] = useState("")
+
+  const setSearchString = async (searchTerm) => {
+    setContent(searchFrames(searchTerm))
+  }
+
   //filter content before display
   return <>
     {/* send setSearchTerm down to the searchbar component  */}
-    <SearchNavbar setSearchTerm={setSearchTerm} />
+    <SearchNavbar setSearchTerm={ setSearchTerm } />
     <div className="container-fluid">
       <div className='row'>
         <FilterPanel />
         <div className='col-9'>
           <h3 className='mt-3'>Search: {searchTerm}</h3>
-          <SearchedContent content={content} />
+            <SearchedContent content={content} />
         </div>
       </div>
     </div>
