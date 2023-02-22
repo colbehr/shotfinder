@@ -23,9 +23,19 @@ router.get('/:id', getFrame, (req,res) =>{
 router.post('/', async (req,res) =>{
     console.log(req.body);
     const frame = new Frame({
-        name: req.body.name,
-        filmName: req.body.filmName,
+        title: req.body.title,
+        imdb: req.body.imdb,
+        year: req.body.year,
+        type: req.body.type,
         frameURL: req.body.frameURL,
+        director: req.body.director,
+        cinematographer: req.body.cinematographer,
+        editor: req.body.editor,
+        setDesigner: req.body.setDesigner,
+        productionCompany: req.body.productionCompany,
+        colorist: req.body.colorist,
+        makeup: req.body.makeup,
+        wardrobe: req.body.wardrobe,
     });
 
     try {

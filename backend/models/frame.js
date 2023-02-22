@@ -1,33 +1,63 @@
 const mongoose = require("mongoose");
 
 const frameSchema = new mongoose.Schema({
-
-    name:{
-        type:String,
-        required: true,
-        unique: true,
-        dropDups: true
+    
+    //ID
+    title: {
+        type: String,
+        required: true
     },
-    uploadDate:{
+    year: {
+        type: String,
+        required: true
+    },
+    imdb: {
+        type: String,
+        required: true
+    },
+    type: {
+        type: String,
+        required: true
+    },
+    director: {
+        type: String,
+    },
+    cinematographer: {
+        type: String,
+    },
+    editor: {
+        type: String,
+    },
+    setDesigner: {
+        type: String,
+    },
+    productionCompany: {
+        type: String,
+    },
+    colorist: {
+        type: String,
+    },
+    makeup: {
+        type: String,
+    },
+    wardrobe: {
+        type: String,
+    },
+    frameURL: {
+        type: String,
+        required: true
+    },
+    uploadDate: {
         type: Date,
-        required:true,
+        required: true,
         default: Date.now,
         immutable: true
     },
-    updateDate:{
+    updateDate: {
         type: Date,
-        required:true,
+        required: true,
         default: Date.now
     },
-    filmName:{
-        type:String,
-        required: true
-    },
-    frameURL:{
-        type:String,
-        required: true
-    },
-
 })
 
 module.exports = mongoose.model('Frame', frameSchema);

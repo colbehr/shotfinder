@@ -4,13 +4,11 @@ export default function SearchedContent( {content}) {
   return (
       <div className='searchedContentContainer'>
         {content.map(item => {
-          return <>
-              <SearchedContentItem key={item._id} 
+          return <SearchedContentItem key={item._id} 
                   id = {item._id}
                   name={item.name}
                   url={item.frameURL}
-                  filmName={item.filmName}/>
-          </>
+                  filmName={item.title}/>
         })}
       </div>
   )

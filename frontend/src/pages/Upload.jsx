@@ -1,8 +1,19 @@
+import { useState} from 'react'
+import UploadForm1 from '../components/UploadForm1';
 import UploadNavbar from '../components/UploadNavbar';
+import { postFrames } from '../services/FrameService';
+export default function Upload() {
+    const [upload1Content, setUpload1Content] = useState({})
+    function sendPostContent(data){
+        setUpload1Content(data)
+        data.frameURL = "http://via.placeholder.com/130x240/"
 
-export default function Upload(){
+        postFrames(data)
+    };
+    
     return <>
-        <UploadNavbar/>
-        <h1>Upload</h1>
+        <UploadNavbar />
+        <UploadForm1 sendPostContent={sendPostContent}/>
+        
     </>
 }
