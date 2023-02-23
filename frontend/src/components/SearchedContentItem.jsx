@@ -45,10 +45,6 @@ export default function SearchedContentItem({ id, name, url, filmName }) {
             </div>
 
 
-            {/* <div className='searchedContentItem' style={imageStyle}>
-
-
-                </div> */}
         </>
     )
 }

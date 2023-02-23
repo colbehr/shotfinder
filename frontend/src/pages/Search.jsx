@@ -13,10 +13,12 @@ export default function Search() {
 
   const { frames, loading, error, hasMore } = useFrameSearch(searchTerm, pageNumber)
 
-  const observer = useRef()
+  const observer = useRef(null)
   const lastFrameElementRef = useCallback(node => {
     if (loading) return
+
     if (observer.current) observer.current.disconnect()
+
     observer.current = new IntersectionObserver(entries => {
       if (entries[0].isIntersecting && hasMore) {
         setPageNumber(prevPageNumber => prevPageNumber + 1)
@@ -43,20 +45,19 @@ export default function Search() {
           <div className='searchedContentContainer'>
             {frames.map((item, index) => {
               if (frames.length === index + 1) {
-                return <SearchedContentItem ref={lastFrameElementRef}
+                return <div ref={lastFrameElementRef}><SearchedContentItem
                   key={item._id}
                   id={item._id}
                   name={item.name}
                   url={item.frameURL}
-                  filmName={item.title} />
-              } else {
-                return <SearchedContentItem
-                  key={item._id}
-                  id={item._id}
-                  name={item.name}
-                  url={item.frameURL}
-                  filmName={item.title} />
-              }
+                  filmName={item.title} /></div>
+              } 
+              return <div ><SearchedContentItem
+                key={item._id}
+                id={item._id}
+                name={item.name}
+                url={item.frameURL}
+                filmName={item.title} /></div>
 
             })}
           </div>
