@@ -7,6 +7,15 @@ export async function getAllFrames(){
     }
 }
 
+export async function getOneFrame(id){
+    try {
+        const res = await fetch('/frames/'+id)
+        return await res.json()
+    } catch (error) {
+        return []
+    }
+}
+
 
 export async function postFrames(content){
     try {

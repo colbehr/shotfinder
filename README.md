@@ -31,7 +31,12 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 * 0.1.0
   * Initial build
   * Initial Nav
-  * Basic content rendering
+  * Basic Content Rendering
+  * Infinite Scroll
+  * Basic Search
+  * Basic Upload (no images)
+  * Basic Single Page
+  
 
 
 <!-- Markdown link & img dfn's -->
