@@ -17,6 +17,8 @@ router.get('/', async (req,res) =>{
 //search 
 router.get('/find', async (req,res) =>{
     try {
+        const page = parseInt(req.query.page) - 1 || 0
+        const limit = parseInt (req.query.limit) || 10
         const search = req.query.search || ""
         let sort = req.query.sort || "uploadDate"
 
@@ -29,8 +31,21 @@ router.get('/find', async (req,res) =>{
             sortBy[sort[0]] = "desc"
         }
         console.log(search, sortBy);
-        const frames = await Frame.find({title: {$regex:search, $options: 'i'}}).sort(sortBy)
-        res.json(frames)
+        const frames = await Frame.find({title: {$regex:search, $options: 'i'}}).sort(sortBy).skip(page * limit).limit(limit)
+
+        const num_found = await Frame.countDocuments({
+            title: {$regex:search, $options: 'i'}
+        })
+
+        const response = {
+            error: false,
+            num_found,
+            page: page+1,
+            limit,
+            frames,
+            
+        }
+        res.status(200).json(response)
     } catch (error) {
         res.status(500).json({message: error.message})
     }
