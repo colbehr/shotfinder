@@ -15,7 +15,7 @@ export default function SearchedContentItem({ id, name, url, filmName }) {
         flex: '1 0 auto',
         marginRight: '10px',
         marginBottom: '10px',
-
+       
 
     };
     return (

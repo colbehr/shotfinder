@@ -15,6 +15,7 @@ router.get('/', async (req,res) =>{
 })
 
 //search 
+//https://www.youtube.com/watch?v=0T4GsMYnVN4
 router.get('/find', async (req,res) =>{
     try {
         const page = parseInt(req.query.page) - 1 || 0

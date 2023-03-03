@@ -1,13 +1,13 @@
-import React, { useState, useRef, useCallback } from 'react'
+import React, { useState, useRef, useCallback, useEffect } from 'react'
 import FilterPanel from '../components/FilterPanel';
 import SearchNavbar from '../components/SearchNavbar';
 import useFrameSearch from '../services/SearchService';
 import SearchedContentItem from '../components/SearchedContentItem'
-
+import Split from 'react-split'
+import SearchContent from '../components/SearchContent';
 
 export default function Search() {
 
-  const [content, setContent] = useState([])
   const [pageNumber, setPageNumber] = useState(1)
   const [searchTerm, setSearchTerm] = useState("")
 
@@ -37,34 +37,19 @@ export default function Search() {
   return <>
     {/* send setSearchTerm down to the searchbar component  */}
     <SearchNavbar setSearchTerm={handleSearch} />
-    <div className="container-fluid">
-      <div className='row'>
+    <div className='container-fluid p-0'>
+      <Split className='d-flex'
+        sizes={[25, 75]}
+        minSize={200}
+        expandToMin={false}
+        gutterSize={10}
+        snapOffset={30}
+        dragInterval={1}
+        cursor="col-resize">
         <FilterPanel />
-        <div className='col-9'>
-          <h3 className='mt-3'>Search: {searchTerm}</h3>
-          <div className='searchedContentContainer'>
-            {frames.map((item, index) => {
-              if (frames.length === index + 1) {
-                return <div ref={lastFrameElementRef}><SearchedContentItem
-                  key={item._id}
-                  id={item._id}
-                  name={item.name}
-                  url={item.frameURL}
-                  filmName={item.title} /></div>
-              } 
-              return <div ><SearchedContentItem
-                key={item._id}
-                id={item._id}
-                name={item.name}
-                url={item.frameURL}
-                filmName={item.title} /></div>
-
-            })}
-          </div>
-          <div> {loading && 'Loading more...'}</div>
-          <div> {error && 'Error'}</div>
-        </div>
-      </div>
+        <SearchContent frames={frames} loading={loading} error={error} lastFrameElementRef={lastFrameElementRef} />
+      </Split>
     </div>
+
   </>
 }

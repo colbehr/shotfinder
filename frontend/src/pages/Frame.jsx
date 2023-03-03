@@ -49,7 +49,7 @@ export default function Frame() {
             <li>Year: {frame.year}</li>
             <li>IMDb: {frame.imdb}</li>
             <li>Type: {frame.type}</li>
-            <li>ID: {frame.id}</li>
+            <li>ID: {frame._id}</li>
           </ul>
         </div>
       </div>

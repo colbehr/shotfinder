@@ -63,6 +63,8 @@ export default function UploadForm1({ sendPostContent }) {
                                 <select className="form-select" aria-label="Film Type" id="Type" required defaultValue={""} onChange={e => setType(e.target.value)}>
                                     <option value="" disabled="disabled">What type of content?</option>
                                     <option value="Movie">Movie</option>
+                                    <option value="TV Show">TV Show</option>
+                                    <option value="Music Video">Music Video</option>
                                     <option value="Short Film">Short Film</option>
                                     <option value="Commercial">Commercial</option>
                                 </select>
