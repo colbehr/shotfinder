@@ -8,48 +8,48 @@ import SearchContent from '../components/SearchContent';
 
 export default function Search() {
 
-  const [pageNumber, setPageNumber] = useState(1)
-  const [searchTerm, setSearchTerm] = useState("")
+    const [pageNumber, setPageNumber] = useState(1)
+    const [searchTerm, setSearchTerm] = useState("")
+    const maxSize = 450
+    const { frames, loading, error, hasMore } = useFrameSearch(searchTerm, pageNumber)
 
-  const { frames, loading, error, hasMore } = useFrameSearch(searchTerm, pageNumber)
+    const observer = useRef(null)
+    const lastFrameElementRef = useCallback(node => {
+        if (loading) return
 
-  const observer = useRef(null)
-  const lastFrameElementRef = useCallback(node => {
-    if (loading) return
+        if (observer.current) observer.current.disconnect()
 
-    if (observer.current) observer.current.disconnect()
+        observer.current = new IntersectionObserver(entries => {
+            if (entries[0].isIntersecting && hasMore) {
+                setPageNumber(prevPageNumber => prevPageNumber + 1)
+                console.log("Visible");
+            }
+        })
+        if (node) observer.current.observe(node)
+    }, [loading, hasMore])
 
-    observer.current = new IntersectionObserver(entries => {
-      if (entries[0].isIntersecting && hasMore) {
-        setPageNumber(prevPageNumber => prevPageNumber + 1)
-        console.log("Visible");
-      }
-    })
-    if (node) observer.current.observe(node)
-  }, [loading, hasMore])
+    function handleSearch(searchTerm) {
+        setSearchTerm(searchTerm)
+        setPageNumber(1)
+    }
 
-  function handleSearch(searchTerm) {
-    setSearchTerm(searchTerm)
-    setPageNumber(1)
-  }
+    //filter content before display
+    return <>
+        {/* send setSearchTerm down to the searchbar component  */}
+        <SearchNavbar setSearchTerm={handleSearch} />
+        <div className='container-fluid p-0'>
+            <Split className='d-flex'
+                sizes={[25, 75]}
+                minSize={200}
+                expandToMin={false}
+                gutterSize={10}
+                snapOffset={30}
+                dragInterval={1}
+                cursor="col-resize">
+                <FilterPanel />
+                <SearchContent frames={frames} loading={loading} error={error} lastFrameElementRef={lastFrameElementRef} />
+            </Split>
+        </div>
 
-  //filter content before display
-  return <>
-    {/* send setSearchTerm down to the searchbar component  */}
-    <SearchNavbar setSearchTerm={handleSearch} />
-    <div className='container-fluid p-0'>
-      <Split className='d-flex'
-        sizes={[25, 75]}
-        minSize={200}
-        expandToMin={false}
-        gutterSize={10}
-        snapOffset={30}
-        dragInterval={1}
-        cursor="col-resize">
-        <FilterPanel />
-        <SearchContent frames={frames} loading={loading} error={error} lastFrameElementRef={lastFrameElementRef} />
-      </Split>
-    </div>
-
-  </>
+    </>
 }
