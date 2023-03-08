@@ -182,3 +182,23 @@ body {
   cursor: row-resize;
   background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAFAQMAAABo7865AAAABlBMVEVHcEzMzMzyAv2sAAAAAXRSTlMAQObYZgAAABBJREFUeF5jOAMEEAIEEFwAn3kMwcB6I2AAAAAASUVORK5CYII=');
 }
+
+.filterPanelContent{
+  height: 92vh;
+  overflow-y:hidden;
+  overflow-x:hidden;
+}
+
+.uploadForm3 img{
+  width: 30%;
+  margin: 10px;
+  border-radius: 10px;
+  border: #f3c60000 3px solid;
+}
+.uploadForm3 img:hover{
+  border: #f3c600 3px solid;
+}
+
+.uploadForm3 img:checked{
+  border: #00aef3 3px solid;
+}

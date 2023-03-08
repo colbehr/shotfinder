@@ -24,8 +24,9 @@ export default function SearchContent({ frames, loading, error, lastFrameElement
                         filmName={item.title} />
                 })}
             </div>
-            <div> {loading && 'Loading more...'}</div>
-            <div> {error && 'Error'}</div>
+            <div className='text-center mt-5 text-secondary'> {loading && 'Loading more...'}</div>
+            <div className='text-center mt-5 text-secondary'> {error && 'Error'}</div>
+            <div className='text-center mt-5 text-secondary'> No more frames... 😢  </div>
         </div>
     )
 }

@@ -2,7 +2,8 @@ import React from 'react'
 
 export default function FilterPanel() {
   return (
-      <div className='filterPanel p-3'>
+    <div className='filterPanel p-3'>
+      <div className='filterPanelContent'>
         <p>Saturation:</p>
         <p>Contrast:</p>
         <p>Temp:</p>
@@ -22,6 +23,7 @@ export default function FilterPanel() {
         <p>Format:</p>
         <p>Location:</p>
       </div>
+    </div>
 
 
   )

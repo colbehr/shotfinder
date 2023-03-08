@@ -1,9 +1,15 @@
 import React from 'react'
 import { useState } from 'react';
+import { FileUploader } from "react-drag-drop-files";
+const fileTypes = ["JPG", "PNG"];
 
-export default function UploadForm3({ files, title, type }) {
+export default function UploadForm2({ setUpload2Content, setUpload2Submitted, title, type }) {
    
-
+    const handleChange = (files) => {
+        console.log(files);
+        setUpload2Content(files);
+        setUpload2Submitted(true)
+    };
 
 
     return (
@@ -14,9 +20,7 @@ export default function UploadForm3({ files, title, type }) {
                         <h3>{title}</h3>
                         <h5>{type}</h5>
                         <div className="text-center mt-3">
-                            {files.map((item, index) => {
-                                return <img id="target" src={this.item}/>
-                            })}
+                            <FileUploader handleChange={handleChange} name="file" types={fileTypes} multiple={true} />
                         </div>
                     </div>
                 </div>

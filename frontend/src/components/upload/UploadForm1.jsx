@@ -1,7 +1,7 @@
 import React from 'react'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-export default function UploadForm1({ sendPostContent }) {
+export default function UploadForm1({ setUpload1Content, setUpload1Submitted }) {
 
     const handleSubmit = event => {
         event.preventDefault();
@@ -19,9 +19,17 @@ export default function UploadForm1({ sendPostContent }) {
             "makeup": makeup,
             "wardrobe": wardrobe}
         console.log(obj);
-        sendPostContent(obj)
+        setUpload1Content(obj)
+        setUpload1Submitted(true)
     }
-    
+
+    useEffect(() => {
+        setTitle("Annihilation")
+        setYear(2018)
+        setImdb("tt2798920")
+        setYear("Movie")
+    }, []);
+
     const [title, setTitle] = useState("");
     const [year, setYear] = useState();
     const [imdb, setImdb] = useState("");
@@ -48,7 +56,7 @@ export default function UploadForm1({ sendPostContent }) {
                         <form onSubmit={e => {handleSubmit(e)}}>
                             <div className="mb-3">
                                 <label htmlFor="title" className="form-label">Title</label>
-                                <input type="text" className="form-control" id="title" placeholder='Pulp Fiction' required onChange={e => setTitle(e.target.value)}/>
+                                <input type="text" className="form-control" id="title" placeholder='Pulp Fiction' required value={title} onChange={e => setTitle(e.target.value)}/>
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="year" className="form-label">Year</label>
@@ -56,7 +64,7 @@ export default function UploadForm1({ sendPostContent }) {
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="imdbID" className="form-label">IMDB Link or ID</label>
-                                <input type="text" className="form-control" id="imdbID" required placeholder='tt0110912' onChange={e => setImdb(e.target.value)}/>
+                                <input type="text" className="form-control" id="imdbID" required placeholder='tt0110912' value={imdb} onChange={e => setImdb(e.target.value)}/>
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="type" className="form-label">Film Type</label>
@@ -81,35 +89,35 @@ export default function UploadForm1({ sendPostContent }) {
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="director" className="form-label">Director</label>
-                                <input type="text" className="form-control" id="director" onChange={e => setDirector(e.target.value)} />
+                                <input type="text" className="form-control" id="director" value={director} onChange={e => setDirector(e.target.value)} />
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="cinematographer" className="form-label">Cinematographer</label>
-                                <input type="text" className="form-control" id="cinematographer" onChange={e => setCinematographer(e.target.value)} />
+                                <input type="text" className="form-control" id="cinematographer" value={cinematographer} onChange={e => setCinematographer(e.target.value)} />
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="editor" className="form-label">Editor</label>
-                                <input type="text" className="form-control" id="editor" onChange={e => setEditor(e.target.value)} />
+                                <input type="text" className="form-control" id="editor" value={editor} onChange={e => setEditor(e.target.value)} />
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="setDesigner" className="form-label">Set Designer</label>
-                                <input type="text" className="form-control" id="setDesigner" onChange={e => setSetDesigner(e.target.value)} />
+                                <input type="text" className="form-control" id="setDesigner" value={setDesigner} onChange={e => setSetDesigner(e.target.value)} />
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="productionCompany" className="form-label">Production Company</label>
-                                <input type="text" className="form-control" id="productionCompany" onChange={e => setProductionCompany(e.target.value)} />
+                                <input type="text" className="form-control" id="productionCompany" value={productionCompany} onChange={e => setProductionCompany(e.target.value)} />
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="colorist" className="form-label">Colorist</label>
-                                <input type="text" className="form-control" id="colorist" onChange={e => setColorist(e.target.value)} />
+                                <input type="text" className="form-control" id="colorist" value={colorist} onChange={e => setColorist(e.target.value)} />
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="makeup" className="form-label">Makeup</label>
-                                <input type="text" className="form-control" id="makeup" onChange={e => setMakeup(e.target.value)} />
+                                <input type="text" className="form-control" id="makeup" value={makeup} onChange={e => setMakeup(e.target.value)} />
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="wardrobe" className="form-label">Wardrobe</label>
-                                <input type="text" className="form-control" id="wardrobe" onChange={e => setWardrobe(e.target.value)} />
+                                <input type="text" className="form-control" id="wardrobe" value={wardrobe} onChange={e => setWardrobe(e.target.value)} />
                             </div>
                             <button type="submit" className="btn btn-primary mb-5">Next</button>
                         </form>
