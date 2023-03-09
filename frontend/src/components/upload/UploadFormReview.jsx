@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 
 export default function UploadFormReview({upload1Content, upload2Content, upload3Content}) {
     useEffect(() => {
