@@ -190,7 +190,7 @@ body {
 }
 
 .uploadForm3 img{
-  width: 30%;
+  width: 100%;
   margin: 10px;
   border-radius: 10px;
   border: #f3c60000 3px solid;
@@ -201,4 +201,9 @@ body {
 
 .uploadForm3 img:checked{
   border: #00aef3 3px solid;
+}
+
+.uploadForm3 input{
+  margin: 10px;
+  width: 100%;
 }

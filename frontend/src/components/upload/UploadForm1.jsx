@@ -20,6 +20,7 @@ export default function UploadForm1({ setUpload1Content, setUpload1Submitted }) 
             "wardrobe": wardrobe}
         console.log(obj);
         setUpload1Content(obj)
+        console.log("Submit Form 1");
         setUpload1Submitted(true)
     }
 

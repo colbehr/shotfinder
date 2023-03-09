@@ -8,6 +8,7 @@ export default function UploadForm2({ setUpload2Content, setUpload2Submitted, ti
     const handleChange = (files) => {
         console.log(files);
         setUpload2Content(files);
+        console.log("Submit Form 2");
         setUpload2Submitted(true)
     };
 
