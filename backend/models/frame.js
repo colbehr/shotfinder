@@ -1,51 +1,49 @@
 const mongoose = require("mongoose");
 
 const frameSchema = new mongoose.Schema({
-    
-    //ID
-    title: {
-        type: String,
-        required: true
+    tags: {
+        type:String
     },
-    year: {
-        type: String,
-        required: true
-    },
-    imdb: {
-        type: String,
-        required: true
-    },
-    type: {
-        type: String,
-        required: true
-    },
-    director: {
-        type: String,
-    },
-    cinematographer: {
-        type: String,
-    },
-    editor: {
-        type: String,
-    },
-    setDesigner: {
-        type: String,
-    },
-    productionCompany: {
-        type: String,
-    },
-    colorist: {
-        type: String,
-    },
-    makeup: {
-        type: String,
-    },
-    wardrobe: {
-        type: String,
+    movieInfo: {
+        title: {
+            type: String,
+        },
+        year: {
+            type: String,
+        },
+        imdb: {
+            type: String,
+        },
+        type: {
+            type: String,
+        },
+        director: {
+            type: String,
+        },
+        cinematographer: {
+            type: String,
+        },
+        editor: {
+            type: String,
+        },
+        setDesigner: {
+            type: String,
+        },
+        productionCompany: {
+            type: String,
+        },
+        colorist: {
+            type: String,
+        },
+        makeup: {
+            type: String,
+        },
+        wardrobe: {
+            type: String,
+        },
     },
     frameURL: {
         type: String,
-        required: true
     },
     uploadDate: {
         type: Date,
