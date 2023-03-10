@@ -32,20 +32,32 @@ router.get('/find', async (req, res) => {
         const search = req.query.search || ""
         let sort = req.query.sort || "uploadDate"
 
+        //sort is passed like this "year,desc" using year as an example
         req.query.sort ? (sort = req.query.sort.split(",")) : (sort = [sort])
 
+        //either sort by whatever is passed for sort, otherwise desc
         let sortBy = {}
         if (sort[1]) {
             sortBy[sort[0]] = sort[1]
         } else {
             sortBy[sort[0]] = "desc"
         }
-        console.log(search, sortBy);
-        const frames = await Frame.find({ title: { $regex: search, $options: 'i' } }).sort(sortBy).skip(page * limit).limit(limit)
 
+        //Query DB for title and tags
+        let regex = new RegExp(search, 'i');
+        const frames = await Frame.find({
+            $or: [
+                { "movieInfo.title": regex },
+                { tags: regex }
+            ]
+        }).sort(sortBy).skip(page * limit).limit(limit)
+
+        
         const num_found = await Frame.countDocuments({
-            title: { $regex: search, $options: 'i' }
-        })
+            $or: [
+            { "movieInfo.title": regex },
+            { tags: regex }
+        ]})
 
         const response = {
             error: false,
@@ -55,6 +67,8 @@ router.get('/find', async (req, res) => {
             frames,
 
         }
+        console.log(search, sortBy, num_found);
+
         res.status(200).json(response)
     } catch (error) {
         res.status(500).json({ message: error.message })
