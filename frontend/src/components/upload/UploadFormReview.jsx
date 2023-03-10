@@ -44,11 +44,11 @@ export default function UploadFormReview({ upload1Content, upload2Content, uploa
         setTotalFrames(numberOfFrames)
         setSubmissionState(newState)
 
-    }, [upload3Content]);
+    }, [upload1Content, upload3Content]);
 
 
     useEffect(() => {
-        if (uploadedFrames == totalFrames && totalFrames > 1) {
+        if (uploadedFrames === totalFrames && totalFrames > 1) {
             setUploadFinished(true)
             console.log("Finished Uploading");
         }
@@ -58,7 +58,7 @@ export default function UploadFormReview({ upload1Content, upload2Content, uploa
     // This is because useEffect runs after the render, but before React updates the DOM
     useEffect(() => {
         console.log("Update:", upload3Content);
-    }, [submissionState]);
+    }, [submissionState, upload3Content]);
 
 
     const handleSubmit = event => {
@@ -72,7 +72,7 @@ export default function UploadFormReview({ upload1Content, upload2Content, uploa
         submissionState.forEach(frame => {
             var form_data = new FormData();
             for (var key in frame) {
-                if (key == "movieInfo") {
+                if (key === "movieInfo") {
                     for (var info in frame[key]) {
                         form_data.append(info, frame[key][info]);
                     }

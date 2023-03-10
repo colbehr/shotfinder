@@ -5,7 +5,7 @@ import SearchNavbar from '../components/SearchNavbar';
 import { getOneFrame } from '../services/FrameService';
 export default function Frame() {
 
-  const [frame, setFrame] = useState({})
+  const [frame, setFrame] = useState({movieInfo:{}})
   const { id } = useParams();
 
   useEffect(() => {
@@ -16,12 +16,16 @@ export default function Frame() {
     fetchData();
   }, [id]);
 
+  useEffect(() => {
+    console.log(frame);
+  }, [frame])
+  
   return (<>
     <SearchNavbar />
     <div className="container" style={{ minHeight: '100vh' }}>
       <div className="row mt-5">
         <div className="col-md-12">
-          <h2>{frame.title}</h2>
+          <h2>{frame.movieInfo.title}</h2>
         </div>
       </div>
       <div className="row mb-5">
@@ -47,7 +51,7 @@ export default function Frame() {
           <h4>Shot Info</h4>
           <ul>
             <li>Year: {frame.movieInfo.year}</li>
-            <li>IMDb: {frame.movieInfo.imdb}</li>
+            <li>IMDB: <a href={"https://www.imdb.com/title/" + frame.movieInfo.imdb}>{frame.movieInfo.imdb}</a></li>
             <li>Type: {frame.movieInfo.type}</li>
             <li>ID: {frame._id}</li>
             <li>Tags: {frame.tags}</li>

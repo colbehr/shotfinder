@@ -5,7 +5,7 @@
 
 ShotFinder also allows you to upload and categorize your own movies, giving you complete control over your collection. With the ability to self-host and store your data locally, you can be sure that your movie frames are always accessible and secure. 
 
-![image](artifacts/npx.png)
+![image](artifacts/ShotFinder.png)
 
 ## Development setup
 

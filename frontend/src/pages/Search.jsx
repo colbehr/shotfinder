@@ -1,8 +1,7 @@
-import React, { useState, useRef, useCallback, useEffect } from 'react'
+import React, { useState, useRef, useCallback } from 'react'
 import FilterPanel from '../components/FilterPanel';
 import SearchNavbar from '../components/SearchNavbar';
 import useFrameSearch from '../services/SearchService';
-import SearchedContentItem from '../components/SearchedContentItem'
 import Split from 'react-split'
 import SearchContent from '../components/SearchContent';
 
@@ -10,7 +9,6 @@ export default function Search() {
 
     const [pageNumber, setPageNumber] = useState(1)
     const [searchTerm, setSearchTerm] = useState("")
-    const maxSize = 450
     const { frames, loading, error, hasMore } = useFrameSearch(searchTerm, pageNumber)
 
     const observer = useRef(null)
@@ -22,7 +20,7 @@ export default function Search() {
         observer.current = new IntersectionObserver(entries => {
             if (entries[0].isIntersecting && hasMore) {
                 setPageNumber(prevPageNumber => prevPageNumber + 1)
-                console.log("Visible");
+                console.log("Load more frames");
             }
         })
         if (node) observer.current.observe(node)

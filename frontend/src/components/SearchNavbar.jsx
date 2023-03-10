@@ -19,7 +19,7 @@ export default function SearchNavBar({ setSearchTerm }) {
                     <ul className="h-100 ">
                         <li>
                             <NavLink
-                                to="/Upload"
+                                to="/upload"
                                 style={({ isActive }) =>
                                     isActive ? activeStyle : undefined
                                 }>
@@ -28,7 +28,7 @@ export default function SearchNavBar({ setSearchTerm }) {
                         </li>
                         <li>
                             <NavLink
-                                to="/Search"
+                                to="/search"
                                 style={({ isActive }) =>
                                     isActive ? activeStyle : undefined
                                 }>
