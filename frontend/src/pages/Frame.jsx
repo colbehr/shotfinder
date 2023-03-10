@@ -26,30 +26,31 @@ export default function Frame() {
       </div>
       <div className="row mb-5">
         <div className="col-md-12 text-center">
-          <img src={frame.frameURL} alt="Movie Frame" style={{ maxWidth: '100%' }} />
+          <img src={frame.frameURL} alt="Movie Frame" style={{ maxWidth: '100%', borderRadius: "10px" }} />
         </div>
       </div>
       <div className="row">
         <div className="col-md-6">
           <h4>Crew</h4>
           <ul>
-            <li>Director: {frame.director}</li>
-            <li>Cinematographer: {frame.cinematographer}</li>
-            <li>Editor: {frame.editor}</li>
-            <li>Set Designer: {frame.setDesigner}</li>
-            <li>Production Company: {frame.productionCompany}</li>
-            <li>Colorist: {frame.colorist}</li>
-            <li>Makeup: {frame.makeup}</li>
-            <li>Wardrobe: {frame.wardrobe}</li>
+            <li>Director: {frame.movieInfo.director}</li>
+            <li>Cinematographer: {frame.movieInfo.cinematographer}</li>
+            <li>Editor: {frame.movieInfo.editor}</li>
+            <li>Set Designer: {frame.movieInfo.setDesigner}</li>
+            <li>Production Company: {frame.movieInfo.productionCompany}</li>
+            <li>Colorist: {frame.movieInfo.colorist}</li>
+            <li>Makeup: {frame.movieInfo.makeup}</li>
+            <li>Wardrobe: {frame.movieInfo.wardrobe}</li>
           </ul>
         </div>
         <div className="col-md-6">
           <h4>Shot Info</h4>
           <ul>
-            <li>Year: {frame.year}</li>
-            <li>IMDb: {frame.imdb}</li>
-            <li>Type: {frame.type}</li>
+            <li>Year: {frame.movieInfo.year}</li>
+            <li>IMDb: {frame.movieInfo.imdb}</li>
+            <li>Type: {frame.movieInfo.type}</li>
             <li>ID: {frame._id}</li>
+            <li>Tags: {frame.tags}</li>
           </ul>
         </div>
       </div>

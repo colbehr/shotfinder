@@ -11,22 +11,22 @@ export default function SearchContent({ frames, loading, error, lastFrameElement
                             key={item._id}
                             lastFrameElementRef={lastFrameElementRef}
                             id={item._id}
-                            name={item.name}
                             url={item.frameURL}
-                            filmName={item.title} />
+                            filmName={item.movieInfo.title}
+                            tags={item.tags.split(",")} />
 
                     }
                     return <SearchedContentItem
                         key={item._id}
                         id={item._id}
-                        name={item.name}
                         url={item.frameURL}
-                        filmName={item.title} />
+                        filmName={item.movieInfo.title}
+                        tags={item.tags.split(",")} />
                 })}
             </div>
             <div className='text-center mt-5 text-secondary'> {loading && 'Loading more...'}</div>
             <div className='text-center mt-5 text-secondary'> {error && 'Error'}</div>
-            <div className='text-center mt-5 text-secondary'> No frames... 😢  </div>
+            <div className='text-center mt-5 text-secondary'> No frames to load... 😢  </div>
         </div>
     )
 }
