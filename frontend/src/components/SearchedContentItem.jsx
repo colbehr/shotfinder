@@ -1,11 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-export default function SearchedContentItem({ id, url, filmName, lastFrameElementRef, tags}) {
+export default function SearchedContentItem({ id, url, filmName, lastFrameElementRef, tags }) {
     let randomNum = Math.random()
     url = url.replace('\\', '/')
     let imageStyle = {
-        backgroundImage:  `url('${url}')`,
+        backgroundImage: `url('${url}')`,
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
@@ -20,7 +20,7 @@ export default function SearchedContentItem({ id, url, filmName, lastFrameElemen
     };
     return (
         //html with tag component
-        
+
         <div className='searchedContentItem' style={imageStyle} ref={lastFrameElementRef}>
             <Link to={"/search/" + id}>
                 <div className='hoverContent'>
@@ -32,9 +32,11 @@ export default function SearchedContentItem({ id, url, filmName, lastFrameElemen
                     {/* <svg xmlns="http://www.w3.org/2000/svg" width="32px" height="32px" fill="currentColor" className="bi bi-mouse scrollicon" viewBox="0 0 16 16">
                         <path d="M8 3a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 3zm4 8a4 4 0 0 1-8 0V5a4 4 0 1 1 8 0v6zM8 0a5 5 0 0 0-5 5v6a5 5 0 0 0 10 0V5a5 5 0 0 0-5-5z" />
                     </svg> */}
-                    
+
                     <div className='tags'>
-                       {tags}
+                        {tags.map((tag, index) => {
+                            return <p>{tag.trim()}</p>
+                        })}
                     </div>
                 </div>
             </Link>

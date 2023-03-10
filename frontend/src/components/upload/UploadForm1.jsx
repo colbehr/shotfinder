@@ -28,7 +28,7 @@ export default function UploadForm1({ setUpload1Content, setUpload1Submitted }) 
         setTitle("Annihilation")
         setYear(2018)
         setImdb("tt2798920")
-        setYear("Movie")
+        setType("Movie")
     }, []);
 
     const [title, setTitle] = useState("");

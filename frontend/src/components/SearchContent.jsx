@@ -13,7 +13,7 @@ export default function SearchContent({ frames, loading, error, lastFrameElement
                             id={item._id}
                             url={item.frameURL}
                             filmName={item.movieInfo.title}
-                            tags={item.tags.split(",")} />
+                            tags={item.tags} />
 
                     }
                     return <SearchedContentItem
@@ -21,7 +21,7 @@ export default function SearchContent({ frames, loading, error, lastFrameElement
                         id={item._id}
                         url={item.frameURL}
                         filmName={item.movieInfo.title}
-                        tags={item.tags.split(",")} />
+                        tags={item.tags} />
                 })}
             </div>
             <div className='text-center mt-5 text-secondary'> {loading && 'Loading more...'}</div>

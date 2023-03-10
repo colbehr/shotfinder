@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
 
 const frameSchema = new mongoose.Schema({
-    tags: {
-        type:String
-    },
+    tags: [{
+        type: String
+    }],
     movieInfo: {
         title: {
             type: String,

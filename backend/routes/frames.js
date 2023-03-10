@@ -86,10 +86,14 @@ router.post('/', upload.single('file'), async (req, res) => {
     movieInfo["colorist"] = req.body.colorist
     movieInfo["makeup"] = req.body.makeup
     movieInfo["wardrobe"] = req.body.wardrobe
+    let tags = req.body.tags.trim().split(',')
+    tags.forEach(tag => {
+        tag = tag.trim()
+    });
     const frame = new Frame({
         frameURL: url,
         movieInfo: movieInfo,
-        tags: req.body.tags,
+        tags: tags,
     });
 
     try {
