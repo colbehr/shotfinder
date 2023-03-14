@@ -37,7 +37,7 @@ export default function SearchBar({ searchTerm, setSearchTerm }) {
     //when enter is hit, then we set the search term and find new frames
     const handleChange = (event) => {
         let str = ""
-        event.map((x) => str = str + " " + x.value)
+        event.map((x) => str = str + "," + x.value)
         setSearchTerm(str.substring(1))
         setTagSearchTerm("")
         console.log("Search: ", str.substring(1));
