@@ -87,27 +87,29 @@ router.post('/', upload.single('file'), async (req, res) => {
     const url = req.protocol + '://' + req.get('host') + '/' + req.file.path;
     console.log("Uploaded", req.body);
     let movieInfo = {}
-    movieInfo["title"] = req.body.title
-    movieInfo["imdb"] = req.body.imdb
-    movieInfo["year"] = req.body.year
-    movieInfo["type"] = req.body.type
-    movieInfo["director"] = req.body.director
-    movieInfo["cinematographer"] = req.body.cinematographer
-    movieInfo["editor"] = req.body.editor
-    movieInfo["setDesigner"] = req.body.setDesigner
-    movieInfo["productionCompany"] = req.body.productionCompany
-    movieInfo["productionCompany"] = req.body.productionCompany
-    movieInfo["colorist"] = req.body.colorist
-    movieInfo["makeup"] = req.body.makeup
-    movieInfo["wardrobe"] = req.body.wardrobe
-    let tags = req.body.tags.trim().split(',')
-    tags.forEach(tag => {
-        tag = tag.trim()
-    });
+    movieInfo["title"] = req.body.title.trim()
+    movieInfo["imdb"] = req.body.imdb.trim()
+    movieInfo["year"] = req.body.year.trim()
+    movieInfo["type"] = req.body.type.trim()
+    movieInfo["director"] = req.body.director.trim()
+    movieInfo["cinematographer"] = req.body.cinematographer.trim()
+    movieInfo["editor"] = req.body.editor.trim()
+    movieInfo["setDesigner"] = req.body.setDesigner.trim()
+    movieInfo["colorist"] = req.body.colorist.trim()
+    movieInfo["makeup"] = req.body.makeup.trim()
+    movieInfo["wardrobe"] = req.body.wardrobe.trim()
+
+    let tagsFormatted = req.body.tags.split(',')
+    tagsFormatted = tagsFormatted.map(tag => tag.trim());
+    tagsFormatted = tagsFormatted.map(tag => tag.charAt(0).toUpperCase() + tag.slice(1));
+    console.log(tagsFormatted);
+
     const frame = new Frame({
         frameURL: url,
+        //movie specific info
         movieInfo: movieInfo,
-        tags: tags,
+        //An array of tags
+        tags: tagsFormatted,
     });
 
     try {

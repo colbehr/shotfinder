@@ -21,7 +21,6 @@ export default function UploadFormReview({ upload1Content, upload2Content, uploa
     //       "cinematographer": "",
     //       "editor": "",
     //       "setDesigner": "",
-    //       "productionCompany": "",
     //       "colorist": "",
     //       "makeup": "",
     //       "wardrobe": ""

@@ -41,7 +41,6 @@ export default function Frame() {
             <li>Cinematographer: {frame.movieInfo.cinematographer}</li>
             <li>Editor: {frame.movieInfo.editor}</li>
             <li>Set Designer: {frame.movieInfo.setDesigner}</li>
-            <li>Production Company: {frame.movieInfo.productionCompany}</li>
             <li>Colorist: {frame.movieInfo.colorist}</li>
             <li>Makeup: {frame.movieInfo.makeup}</li>
             <li>Wardrobe: {frame.movieInfo.wardrobe}</li>
@@ -54,7 +53,7 @@ export default function Frame() {
             <li>IMDB: <a href={"https://www.imdb.com/title/" + frame.movieInfo.imdb}>{frame.movieInfo.imdb}</a></li>
             <li>Type: {frame.movieInfo.type}</li>
             <li>ID: {frame._id}</li>
-            <li>Tags: {frame.tags}</li>
+            <li>Tags: {JSON.stringify(frame.tags) }</li>
           </ul>
         </div>
       </div>

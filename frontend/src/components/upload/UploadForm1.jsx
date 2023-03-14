@@ -14,7 +14,6 @@ export default function UploadForm1({ setUpload1Content, setUpload1Submitted }) 
             "cinematographer": cinematographer,
             "editor": editor,
             "setDesigner": setDesigner,
-            "productionCompany": productionCompany,
             "colorist": colorist,
             "makeup": makeup,
             "wardrobe": wardrobe}
@@ -23,13 +22,6 @@ export default function UploadForm1({ setUpload1Content, setUpload1Submitted }) 
         console.log("Submit Form 1");
         setUpload1Submitted(true)
     }
-
-    useEffect(() => {
-        setTitle("Annihilation")
-        setYear(2018)
-        setImdb("tt2798920")
-        setType("Movie")
-    }, []);
 
     const [title, setTitle] = useState("");
     const [year, setYear] = useState();
@@ -40,7 +32,6 @@ export default function UploadForm1({ setUpload1Content, setUpload1Submitted }) 
     const [cinematographer, setCinematographer] = useState("");
     const [editor, setEditor] = useState("");
     const [setDesigner, setSetDesigner] = useState("");
-    const [productionCompany, setProductionCompany] = useState("");
     const [colorist, setColorist] = useState("");
     const [makeup, setMakeup] = useState("");
     const [wardrobe, setWardrobe] = useState("");
@@ -65,7 +56,7 @@ export default function UploadForm1({ setUpload1Content, setUpload1Submitted }) 
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="imdbID" className="form-label">IMDB Link or ID</label>
-                                <input type="text" className="form-control" id="imdbID" required placeholder='tt0110912' value={imdb} onChange={e => setImdb(e.target.value)}/>
+                                <input type="text" className="form-control" id="imdbID" placeholder='tt0110912' value={imdb} onChange={e => setImdb(e.target.value)}/>
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="type" className="form-label">Film Type</label>
@@ -103,10 +94,6 @@ export default function UploadForm1({ setUpload1Content, setUpload1Submitted }) 
                             <div className="mb-3">
                                 <label htmlFor="setDesigner" className="form-label">Set Designer</label>
                                 <input type="text" className="form-control" id="setDesigner" value={setDesigner} onChange={e => setSetDesigner(e.target.value)} />
-                            </div>
-                            <div className="mb-3">
-                                <label htmlFor="productionCompany" className="form-label">Production Company</label>
-                                <input type="text" className="form-control" id="productionCompany" value={productionCompany} onChange={e => setProductionCompany(e.target.value)} />
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="colorist" className="form-label">Colorist</label>

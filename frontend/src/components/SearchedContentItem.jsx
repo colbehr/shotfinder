@@ -13,7 +13,7 @@ export default function SearchedContentItem({ id, url, filmName, lastFrameElemen
         maxWidth: "350px",
         minWidth: "200px",
         // overflow: 'hidden',
-        width: 180 + (randomNum * 120) + "px",
+        width: (randomNum * 200) + "px",
         flex: '1 0 auto',
         marginRight: '10px',
         marginBottom: '10px',
@@ -35,7 +35,8 @@ export default function SearchedContentItem({ id, url, filmName, lastFrameElemen
 
                     <div className='tags'>
                         {tags.map((tag, index) => {
-                            return <p>{tag.trim()}</p>
+                            tag = tag.trim()
+                            return <p>{tag[0].toUpperCase() + tag.substring(1)}</p>
                         })}
                     </div>
                 </div>

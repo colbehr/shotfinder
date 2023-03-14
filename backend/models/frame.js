@@ -29,9 +29,6 @@ const frameSchema = new mongoose.Schema({
         setDesigner: {
             type: String,
         },
-        productionCompany: {
-            type: String,
-        },
         colorist: {
             type: String,
         },
