@@ -37,7 +37,7 @@ export default function Search() {
     //filter content before display
     return <>
         {/* send setSearchTerm down to the searchbar component  */}
-        <SearchNavbar setSearchTerm={handleSearch} />
+        <SearchNavbar searchTerm={searchTerm} setSearchTerm={handleSearch} />
         <div className='container-fluid p-0'>
             <Split className='d-flex'
                 sizes={[25, 75]}

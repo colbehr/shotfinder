@@ -12,13 +12,7 @@ export default function UploadForm() {
     const [upload2Submitted, setUpload2Submitted] = useState(false)
     const [upload3Content, setUpload3Content] = useState({})
     const [upload3Submitted, setUpload3Submitted] = useState(false)
-    // function sendPostContent(data){
-    //     setUpload1Content(data)
-    //     setupload1Submitted(true)
-    //     data.frameURL = "http://via.placeholder.com/130x240/"
 
-    //     // postFrames(data)
-    // };
   return (
     <>
         {!upload1Submitted ? <UploadForm1 setUpload1Content={setUpload1Content} setUpload1Submitted={setUpload1Submitted}/> : ""}

@@ -3,49 +3,55 @@ import { useState, useEffect } from "react";
 import Select from 'react-select'
 
 
-export default function SearchBar ({setSearchTerm}){
+export default function SearchBar({ searchTerm, setSearchTerm }) {
     const [options, setOptions] = useState([])
+    const [tagSearchTerm, setTagSearchTerm] = useState("")
 
+    // add an event listener for keyup events
+    // something about the onKeyUp event on 
+    // the select component was not working
     useEffect(() => {
-        fetch('http://localhost:3001/tags')
-        .then(response => response.json()) 
-        .then(data => {
-            data.map(x =>  { 
-                x.label = x.tag; 
-                x.value = x.tag;
-                return x 
+        window.addEventListener("keyup", (e) => { setTagSearchTerm(e.target.value) });
+        return () => {
+            window.removeEventListener("keyup", (e) => { setTagSearchTerm(e.target.value) });
+        };
+    }, []);
+
+    //when a new key is pressed, we requery the tag db for some new search terms
+    useEffect(() => {
+        fetch('http://localhost:3001/tags?search=' + tagSearchTerm)
+            .then(response => response.json())
+            .then(data => {
+                data.map(x => {
+                    x.label = x.tag[0].toUpperCase() + x.tag.substring(1);
+                    x.value = x.tag;
+                    return x
+                })
+                setOptions(data);
             })
-            setOptions(data);
-        })
-        .catch(error => {
-            console.error(error);
-        });
-    }, [])
-    
-    useEffect(() => {
-      console.log(options);
-    }, [options])
-    
+            .catch(error => {
+                console.error(error);
+            });
+    }, [tagSearchTerm])
+
+    //when enter is hit, then we set the search term and find new frames
     const handleChange = (event) => {
         let str = ""
         event.map((x) => str = str + " " + x.value)
-        setSearchTerm(str)
-        console.log(str);
+        setSearchTerm(str.substring(1))
+        setTagSearchTerm("")
+        console.log("Search: ", str.substring(1));
     }
+
 
     return (
         <>
-            {/* <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-            </svg> */}
-            {/* <input type="text" className='mt-2 searchbox' placeholder='Grass Hill, Close Up, Day' onChange={(e) => /> */}
             <Select
                 isMulti
                 options={options}
                 className="selectNav basic-multi-select mt-2"
                 classNamePrefix="select"
                 placeholder={'Grass, Close Up, Day'}
-                // onKeyDown={handleKeyDown}
                 onChange={handleChange}
             />
         </>

@@ -36,7 +36,7 @@ export default function SearchedContentItem({ id, url, filmName, lastFrameElemen
                     <div className='tags'>
                         {tags.map((tag, index) => {
                             tag = tag.trim()
-                            return <p>{tag[0].toUpperCase() + tag.substring(1)}</p>
+                            return <p key={index}>{tag[0].toUpperCase() + tag.substring(1)}</p>
                         })}
                     </div>
                 </div>

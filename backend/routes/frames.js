@@ -28,7 +28,7 @@ router.get('/', async (req, res) => {
 router.get('/find', async (req, res) => {
     try {
         const page = parseInt(req.query.page) - 1 || 0
-        const limit = parseInt(req.query.limit) || 10
+        const limit = parseInt(req.query.limit) || 35
         const search = req.query.search || ""
         let sort = req.query.sort || "uploadDate"
 
@@ -67,7 +67,7 @@ router.get('/find', async (req, res) => {
             frames,
 
         }
-        console.log(search, sortBy, num_found);
+        console.log(search, page, num_found);
 
         res.status(200).json(response)
     } catch (error) {

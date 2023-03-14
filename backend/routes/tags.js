@@ -7,7 +7,15 @@ const Tag = require('../models/tag')
 //get all 
 router.get('/', async (req, res) => {
     try {
-        const tags = await Tag.find()
+        const search = req.query.search || ""
+        let limit = 8
+        let regex = new RegExp(search, 'i');
+        console.log(search);
+        const tags = await Tag.find(
+                { "tag": {$regex: search} }
+        ).limit(limit).select('tag -_id')
+
+        // const tags = await Tag.find()
         res.json(tags)
     } catch (error) {
         res.status(500).json({ message: error.message })
@@ -69,23 +77,48 @@ router.get('/find', async (req, res) => {
 //create one
 router.post('/', async (req, res) => {
     
-    // let tagsFormatted = req.body.tags.split(',')
-    // tagsFormatted = tagsFormatted.map(tag => tag.trim());
-    // tagsFormatted = tagsFormatted.map(tag => tag.charAt(0).toUpperCase() + tag.slice(1));
-    // console.log(tagsFormatted);
+    let userTag = req.body.tag
+    console.log(req.body);
+    if (userTag) {
+        userTag = userTag.trim();
+        userTag = userTag.toLowerCase();
+        console.log(userTag);
 
-    // const tag = new Tag({
-    //     //An array of tags
-    //     tags: tagsFormatted,
-    // });
+        const tag = new Tag({
+            tag: userTag,
+        });
 
-    // try {
-    //     const newFrame = await frame.save()
-    //     res.status(201).json(newFrame)
-    // } catch (error) {
-    //     res.status(400).json({ message: error.message })
-    // }
+        try {
+            const newTag = await tag.save()
+            res.status(201).json(tag)
+        } catch (error) {
+            res.status(400).json({ message: error.message })
+        }
+    } else{
+        res.status(400).json({ message: "Submit a tag" })
+    }
+
 })
 
+// //create one
+// router.post('/', async (req, res) => {
+    
+//     let tagsFormatted = req.body.tags.split(',')
+//     tagsFormatted = tagsFormatted.map(tag => tag.trim());
+//     tagsFormatted = tagsFormatted.map(tag => tag.charAt(0).toUpperCase() + tag.slice(1));
+//     console.log(tagsFormatted);
+
+//     const tag = new Tag({
+//         //An array of tags
+//         tags: tagsFormatted,
+//     });
+
+//     try {
+//         const newFrame = await frame.save()
+//         res.status(201).json(newFrame)
+//     } catch (error) {
+//         res.status(400).json({ message: error.message })
+//     }
+// })
 
 module.exports = router
