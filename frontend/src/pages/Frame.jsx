@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import SearchNavbar from '../components/SearchNavbar';
+import NavBar from '../components/Navbar';
 import { getOneFrame } from '../services/FrameService';
 export default function Frame() {
 
@@ -12,6 +12,7 @@ export default function Frame() {
     async function fetchData() {
       const responseData = await getOneFrame(id);
       setFrame(responseData);
+      document.title = "Shotfinder - "+ responseData.movieInfo.title;
     }
     fetchData();
   }, [id]);
@@ -21,7 +22,7 @@ export default function Frame() {
   }, [frame])
   
   return (<>
-    <SearchNavbar />
+    <NavBar />
     <div className="container" style={{ minHeight: '100vh' }}>
       <div className="row mt-5">
         <div className="col-md-12">

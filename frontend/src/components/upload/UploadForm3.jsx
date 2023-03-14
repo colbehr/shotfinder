@@ -7,9 +7,8 @@ export default function UploadForm3({ files, setUpload3Content, setUpload3Submit
     const [frameInfo, setFrameInfo] = useState([
         { file: "", tags: "" }
     ]);
-
+    
     useEffect(() => {
-        files = Array.from(files || [])
         setFrameInfo([])
         //setup frame info
         files.forEach(element => {
