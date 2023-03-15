@@ -23,36 +23,35 @@ router.get('/', async (req, res) => {
     }
 })
 
-// changes all tags to be lower and trims
-router.get('/debug', async (req, res) => {
-    console.log("test");
-    try {
-        const frames = await Frame.find()
-        let convertedFrames = frames.map(frame => {
-            frame.tags = frame.tags.map(tag => tag.toLowerCase().trim())
-            return { frame };
-        });
-        convertedFrames.forEach(frame => {
-            frame = frame.frame
-            console.log(frame.tags);
-            // Frame.findByIdAndUpdate (
-            //     frame._id, // filter by _id
-            //     frame, // update data
-            //     { upsert: true }, // upsert option
-            //     function (err) { // callback
-            //       if (err) {
-            //         console.error (err);
-            //       }
-            //     }
-            //   );
+// // changes all tags to be lower and trims
+// router.get('/debug', async (req, res) => {
+//     try {
+//         const frames = await Frame.find()
+//         let convertedFrames = frames.map(frame => {
+//             frame.tags = frame.tags.map(tag => tag.toLowerCase().trim())
+//             return { frame };
+//         });
+//         convertedFrames.forEach(frame => {
+//             frame = frame.frame
+//             console.log(frame.tags);
+//             // Frame.findByIdAndUpdate (
+//             //     frame._id, // filter by _id
+//             //     frame, // update data
+//             //     { upsert: true }, // upsert option
+//             //     function (err) { // callback
+//             //       if (err) {
+//             //         console.error (err);
+//             //       }
+//             //     }
+//             //   );
             
-        });
-        res.json(convertedFrames)
+//         });
+//         res.json(convertedFrames)
 
-    } catch (error) {
-        res.status(500).json({ message: error.message })
-    }
-})
+//     } catch (error) {
+//         res.status(500).json({ message: error.message })
+//     }
+// })
 
 //search 
 //https://www.youtube.com/watch?v=0T4GsMYnVN4

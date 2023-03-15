@@ -10,8 +10,11 @@ export default function SearchNavBar({ searchTerm, setSearchTerm }) {
     return <nav className="nav">
         <div className="container-fluid">
             <div className="row justify-content-between ">
-                <div className="col-2">
-                    <a href="/" className="logo-text">ShotFinder</a></div>
+            <div className="col-2">
+                    <NavLink to="/search" className="logo-text"> 
+                        ShotFinder
+                    </NavLink>
+                </div>
                 <div className="col-5">
                     <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
                 </div>

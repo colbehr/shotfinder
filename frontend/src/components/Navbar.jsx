@@ -10,7 +10,10 @@ export default function NavBar() {
         <div className="container-fluid">
             <div className="row justify-content-between ">
                 <div className="col-2">
-                    <a href="/" className="logo-text">ShotFinder</a></div>
+                    <NavLink to="/search" className="logo-text"> 
+                        ShotFinder
+                    </NavLink>
+                </div>
                 <div className="col-5">
                 </div>
                 <div className="col-2 d-flex justify-content-end">
