@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from 'react'
+import React, { useState, useRef, useEffect, useCallback } from 'react'
 import FilterPanel from '../components/FilterPanel';
 import SearchNavbar from '../components/SearchNavbar';
 import useFrameSearch from '../services/SearchService';
@@ -20,12 +20,15 @@ export default function Search() {
         observer.current = new IntersectionObserver(entries => {
             if (entries[0].isIntersecting && hasMore) {
                 setPageNumber(prevPageNumber => prevPageNumber + 1)
-                console.log("Load more frames");
             }
         })
         if (node) observer.current.observe(node)
     }, [loading, hasMore])
 
+    useEffect(() => {
+        document.title = "Shotfinder";
+    }, [])
+    
     function handleSearch(searchTerm) {
         setSearchTerm(searchTerm)
         setPageNumber(1)
@@ -34,7 +37,7 @@ export default function Search() {
     //filter content before display
     return <>
         {/* send setSearchTerm down to the searchbar component  */}
-        <SearchNavbar setSearchTerm={handleSearch} />
+        <SearchNavbar searchTerm={searchTerm} setSearchTerm={handleSearch} />
         <div className='container-fluid p-0'>
             <Split className='d-flex'
                 sizes={[25, 75]}

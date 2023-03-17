@@ -23,13 +23,43 @@ router.get('/', async (req, res) => {
     }
 })
 
+// // changes all tags to be lower and trims
+// router.get('/debug', async (req, res) => {
+//     try {
+//         const frames = await Frame.find()
+//         let convertedFrames = frames.map(frame => {
+//             frame.tags = frame.tags.map(tag => tag.toLowerCase().trim())
+//             return { frame };
+//         });
+//         convertedFrames.forEach(frame => {
+//             frame = frame.frame
+//             console.log(frame.tags);
+//             // Frame.findByIdAndUpdate (
+//             //     frame._id, // filter by _id
+//             //     frame, // update data
+//             //     { upsert: true }, // upsert option
+//             //     function (err) { // callback
+//             //       if (err) {
+//             //         console.error (err);
+//             //       }
+//             //     }
+//             //   );
+            
+//         });
+//         res.json(convertedFrames)
+
+//     } catch (error) {
+//         res.status(500).json({ message: error.message })
+//     }
+// })
+
 //search 
 //https://www.youtube.com/watch?v=0T4GsMYnVN4
 router.get('/find', async (req, res) => {
     try {
         const page = parseInt(req.query.page) - 1 || 0
-        const limit = parseInt(req.query.limit) || 10
-        const search = req.query.search || ""
+        const limit = parseInt(req.query.limit) || 35
+        const search = req.query.search.trim() || ""
         let sort = req.query.sort || "uploadDate"
 
         //sort is passed like this "year,desc" using year as an example
@@ -44,20 +74,16 @@ router.get('/find', async (req, res) => {
         }
 
         //Query DB for title and tags
-        let regex = new RegExp(search, 'i');
-        const frames = await Frame.find({
-            $or: [
-                { "movieInfo.title": regex },
-                { tags: regex }
-            ]
-        }).sort(sortBy).skip(page * limit).limit(limit)
+        let filter = []
+        if (search) {
+            filter = search.split(",")
+        }
+        const frames = await Frame.find(
+            filter.length > 0 ? { tags: { $all: filter } } : {}
+        ).sort(sortBy).skip(page * limit).limit(limit)
 
-        
-        const num_found = await Frame.countDocuments({
-            $or: [
-            { "movieInfo.title": regex },
-            { tags: regex }
-        ]})
+        const num_found = await Frame.countDocuments(
+            filter.length > 0 ? { tags: { $all: filter } } : {})
 
         const response = {
             error: false,
@@ -67,7 +93,7 @@ router.get('/find', async (req, res) => {
             frames,
 
         }
-        console.log(search, sortBy, num_found);
+        console.log(search || "<empty string>", page, num_found);
 
         res.status(200).json(response)
     } catch (error) {
@@ -164,5 +190,7 @@ async function getFrame(req, res, next) {
     res.frame = frame
     next()
 }
+
+
 
 module.exports = router

@@ -1,8 +1,7 @@
 import { NavLink } from "react-router-dom";
-import SearchBar from "./SearchBar";
 
 // setSearchTerm gets sent to the search bar component so the input can send data to the search page
-export default function SearchNavBar({ searchTerm, setSearchTerm }) {
+export default function NavBar() {
     let activeStyle = {
         textDecoration: "underline",
     };
@@ -10,13 +9,12 @@ export default function SearchNavBar({ searchTerm, setSearchTerm }) {
     return <nav className="nav">
         <div className="container-fluid">
             <div className="row justify-content-between ">
-            <div className="col-2">
+                <div className="col-2">
                     <NavLink to="/search" className="logo-text"> 
                         ShotFinder
                     </NavLink>
                 </div>
                 <div className="col-5">
-                    <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
                 </div>
                 <div className="col-2 d-flex justify-content-end">
                     <ul className="h-100 ">

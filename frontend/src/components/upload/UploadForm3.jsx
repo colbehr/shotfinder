@@ -7,9 +7,8 @@ export default function UploadForm3({ files, setUpload3Content, setUpload3Submit
     const [frameInfo, setFrameInfo] = useState([
         { file: "", tags: "" }
     ]);
-
+    
     useEffect(() => {
-        files = Array.from(files || [])
         setFrameInfo([])
         //setup frame info
         files.forEach(element => {
@@ -34,6 +33,7 @@ export default function UploadForm3({ files, setUpload3Content, setUpload3Submit
 
     const handleSubmit = event => {
         event.preventDefault();
+        
         setUpload3Content(frameInfo)
         console.log("Submit Form 3");
         setUpload3Submitted(true)
