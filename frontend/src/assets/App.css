@@ -2,6 +2,10 @@
   box-sizing: border-box;
 }
 
+html, body{
+  background-color: #181A1B;
+}
+
 body {
   margin: 0;
 }
@@ -210,4 +214,25 @@ body {
 
 .selectNav{
   color: #1F2223;
+}
+
+.formProgress{
+  display: flex;
+  gap: 0.2rem;
+}
+
+
+.formProgress p{
+  margin: 0;
+  margin-top: 5px;
+  color: #777;
+}
+.formProgress p::before {
+  content: " »";
+  margin: .5rem;
+}
+
+.formProgress p:first-child:before
+{
+  content: '';
 }

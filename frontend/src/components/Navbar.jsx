@@ -1,7 +1,8 @@
 import { NavLink } from "react-router-dom";
 
 // setSearchTerm gets sent to the search bar component so the input can send data to the search page
-export default function NavBar() {
+// Takes a middle component, so we can add a searchbar, loading bar , or nothing based on which page we are on.
+export default function NavBar({MiddleComponent}) {
     let activeStyle = {
         textDecoration: "underline",
     };
@@ -15,6 +16,7 @@ export default function NavBar() {
                     </NavLink>
                 </div>
                 <div className="col-5">
+                    {MiddleComponent}
                 </div>
                 <div className="col-2 d-flex justify-content-end">
                     <ul className="h-100 ">

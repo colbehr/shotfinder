@@ -5,6 +5,7 @@ const Tag = require('../models/tag')
 
 
 //get tags, will use search term or give back random set
+// *most of the time
 router.get('/', async (req, res) => {
     try {
         let search = req.query.search || ""
@@ -22,7 +23,6 @@ router.get('/', async (req, res) => {
             { "tag": {$regex: search} }]} : {}
         ).limit(limit).select('tag -_id')
 
-        console.log(search);
         res.json(tags.sort((a, b) => compareFn(a, b, search)))
     } catch (error) {
         res.status(500).json({ message: error.message })
