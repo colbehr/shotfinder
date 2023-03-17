@@ -49,6 +49,11 @@ const framesRouter = require('./routes/frames')
 app.use('/frames', framesRouter)
 
 /**
+ * /tags REST API route 
+ */
+const tagsRouter = require('./routes/tags')
+app.use('/tags', tagsRouter)
+/**
  * default route 
  */
 app.get('/', (req, res) => {

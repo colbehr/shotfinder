@@ -1,8 +1,8 @@
 import { NavLink } from "react-router-dom";
-import SearchBar from "./SearchBar";
 
 // setSearchTerm gets sent to the search bar component so the input can send data to the search page
-export default function SearchNavBar({ searchTerm, setSearchTerm }) {
+// Takes a middle component, so we can add a searchbar, loading bar , or nothing based on which page we are on.
+export default function NavBar({MiddleComponent}) {
     let activeStyle = {
         textDecoration: "underline",
     };
@@ -10,13 +10,13 @@ export default function SearchNavBar({ searchTerm, setSearchTerm }) {
     return <nav className="nav">
         <div className="container-fluid">
             <div className="row justify-content-between ">
-            <div className="col-2">
+                <div className="col-2">
                     <NavLink to="/search" className="logo-text"> 
                         ShotFinder
                     </NavLink>
                 </div>
                 <div className="col-5">
-                    <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+                    {MiddleComponent}
                 </div>
                 <div className="col-2 d-flex justify-content-end">
                     <ul className="h-100 ">
