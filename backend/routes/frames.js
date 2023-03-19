@@ -8,54 +8,31 @@ const storage = multer.diskStorage({
         cb(null, 'uploads')
     },
     filename: function (req, file, cb) {
-        cb(null, Date.now() + '-' + file.originalname)
+        const fileName = file.originalname.toLowerCase().split(' ').join('-');
+        cb(null, Date.now() + '-' + fileName)
     }
 })
-const upload = multer({ storage: storage })
 
-//get all 
+//Check that the file is only png, jpg or jpeg
+const upload = multer({
+    storage: storage,
+    fileFilter: (req, file, cb) => {
+        if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
+            cb(null, true);
+        } else {
+            cb(null, false);
+            return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
+        }
+    }
+})
+
+/**
+ * @name get /
+ * search route, finds frames by search query, 
+ * also used for populating front page without query
+ * https://www.youtube.com/watch?v=0T4GsMYnVN4
+ */
 router.get('/', async (req, res) => {
-    try {
-        const frames = await Frame.find()
-        res.json(frames)
-    } catch (error) {
-        res.status(500).json({ message: error.message })
-    }
-})
-
-// // changes all tags to be lower and trims
-// router.get('/debug', async (req, res) => {
-//     try {
-//         const frames = await Frame.find()
-//         let convertedFrames = frames.map(frame => {
-//             frame.tags = frame.tags.map(tag => tag.toLowerCase().trim())
-//             return { frame };
-//         });
-//         convertedFrames.forEach(frame => {
-//             frame = frame.frame
-//             console.log(frame.tags);
-//             // Frame.findByIdAndUpdate (
-//             //     frame._id, // filter by _id
-//             //     frame, // update data
-//             //     { upsert: true }, // upsert option
-//             //     function (err) { // callback
-//             //       if (err) {
-//             //         console.error (err);
-//             //       }
-//             //     }
-//             //   );
-            
-//         });
-//         res.json(convertedFrames)
-
-//     } catch (error) {
-//         res.status(500).json({ message: error.message })
-//     }
-// })
-
-//search 
-//https://www.youtube.com/watch?v=0T4GsMYnVN4
-router.get('/find', async (req, res) => {
     try {
         const page = parseInt(req.query.page) - 1 || 0
         const limit = parseInt(req.query.limit) || 35
@@ -91,7 +68,6 @@ router.get('/find', async (req, res) => {
             page: page + 1,
             limit,
             frames,
-
         }
         console.log(search || "<empty string>", page, num_found);
 
@@ -101,17 +77,22 @@ router.get('/find', async (req, res) => {
     }
 })
 
-// get one
-// get specific frame from db
+/**
+ * @name get /:id
+ * get specific frame from db
+ */
 router.get('/:id', getFrame, (req, res) => {
     res.send(res.frame)
 })
 
-//create one
+/**
+ * @name post /
+ * Accepts a post from the upload form, posts to database and uploads 
+ */
 router.post('/', upload.single('file'), async (req, res) => {
     //get url
     const url = req.protocol + '://' + req.get('host') + '/' + req.file.path;
-    console.log("Uploaded", req.body);
+    // console.log("Uploaded", req.body);
     let movieInfo = {}
     movieInfo["title"] = req.body.title.trim()
     movieInfo["imdb"] = req.body.imdb.trim()
@@ -127,7 +108,7 @@ router.post('/', upload.single('file'), async (req, res) => {
 
     let tagsFormatted = req.body.tags.split(',')
     tagsFormatted = tagsFormatted.map(tag => tag.trim());
-    tagsFormatted = tagsFormatted.map(tag => tag.charAt(0).toUpperCase() + tag.slice(1));
+    tagsFormatted = tagsFormatted.map(tag => tag.toLowerCase());
     console.log(tagsFormatted);
 
     const frame = new Frame({
@@ -146,8 +127,10 @@ router.post('/', upload.single('file'), async (req, res) => {
     }
 })
 
-// update one
-// upload files and json, send to db
+/**
+ * @name patch /:id
+ * update database 
+ */
 router.patch('/:id', getFrame, async (req, res) => {
     if (req.body.name != null) {
         res.frame.name = req.body.name
@@ -167,7 +150,10 @@ router.patch('/:id', getFrame, async (req, res) => {
     }
 })
 
-// delete one
+/**
+ * @name delete /:id
+ * delete from database 
+ */
 router.delete('/:id', getFrame, async (req, res) => {
     try {
         await res.frame.remove()
@@ -177,6 +163,11 @@ router.delete('/:id', getFrame, async (req, res) => {
     }
 })
 
+
+/**
+ * @name getFrame
+ * Middleware for finding a post by id
+ */
 async function getFrame(req, res, next) {
     let frame
     try {
@@ -190,7 +181,6 @@ async function getFrame(req, res, next) {
     res.frame = frame
     next()
 }
-
 
 
 module.exports = router

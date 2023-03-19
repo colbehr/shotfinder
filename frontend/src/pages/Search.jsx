@@ -1,11 +1,16 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react'
-import FilterPanel from '../components/FilterPanel';
-import SearchBar from '../components/SearchBar';
+// import FilterPanel from '../components/FilterPanel';
+import SearchBar from '../components/SearchBarNavbarMid';
 import useFrameSearch from '../services/SearchService';
-import Split from 'react-split'
+// import Split from 'react-split'
 import SearchContent from '../components/SearchContent';
 import NavBar from '../components/Navbar';
 
+
+/**
+ * Shows a search bar and frames from the searched 
+ * term or some random files from the db
+ */
 export default function Search() {
 
     const [pageNumber, setPageNumber] = useState(1)
@@ -38,7 +43,7 @@ export default function Search() {
     //filter content before display
     return <>
         {/* send setSearchTerm down to the searchbar component  */}
-        <NavBar MiddleComponent={<SearchBar searchTerm={searchTerm} setSearchTerm={handleSearch} />} />
+        <NavBar AdditionalComponent={<SearchBar setSearchTerm={handleSearch} />} />
         
         <div className='container-fluid p-0'>
             {/* <Split className='d-flex' */}

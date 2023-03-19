@@ -3,6 +3,12 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import NavBar from '../components/Navbar';
 import { getOneFrame } from '../services/FrameService';
+
+
+/**
+ * Page for an individual frame, showing the frame 
+ * and data such as tags for the frame. 
+ */
 export default function Frame() {
 
   const [frame, setFrame] = useState({movieInfo:{}})

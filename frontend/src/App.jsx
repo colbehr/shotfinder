@@ -5,11 +5,9 @@ import Search from './pages/Search'
 import Upload from './pages/Upload'
 import Frame from './pages/Frame'
 import { Route, Routes } from 'react-router-dom'
-// searchbar text passed to search element
 
 function App() {
   
-
   return (
     <div className="App">
       <Routes>

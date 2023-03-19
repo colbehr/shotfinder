@@ -1,4 +1,8 @@
 
+/**
+ * Displays a breadcrumb tracker for form progress
+ * @param {*} step - Step of the form to display
+ */
 export default function UploadNavbarMid( {step=1} ) {
     let activeStyle = {
         color: "white",

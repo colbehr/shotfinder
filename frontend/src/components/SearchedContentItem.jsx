@@ -1,6 +1,17 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+/**
+ * A small image for display in searches,
+ * has hover effect that shows tags and title
+ * 
+ * @param {*} id - for the link
+ * @param {*} url - frame image url
+ * @param {*} filmName - frame title
+ * @param {*} lastFrameElementRef - passed if its the last frame in the set for infinite scroll
+ * @param {*} tags - tags to display
+ * @returns 
+ */
 export default function SearchedContentItem({ id, url, filmName, lastFrameElementRef, tags }) {
     let randomNum = Math.random()
     url = url.replace('\\', '/')
@@ -12,15 +23,12 @@ export default function SearchedContentItem({ id, url, filmName, lastFrameElemen
         height: "150px",
         maxWidth: "350px",
         minWidth: "200px",
-        // overflow: 'hidden',
         width: (randomNum * 200) + "px",
         flex: '1 0 auto',
         marginRight: '10px',
         marginBottom: '10px',
     };
     return (
-        //html with tag component
-
         <div className='searchedContentItem' style={imageStyle} ref={lastFrameElementRef}>
             <Link to={"/search/" + id}>
                 <div className='hoverContent'>

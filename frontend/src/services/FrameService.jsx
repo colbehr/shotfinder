@@ -7,6 +7,12 @@ export async function getAllFrames(){
     }
 }
 
+
+/**
+ * Gets a frame by id, in use by the single frame page
+ * @param {} id 
+ * @returns 
+ */
 export async function getOneFrame(id){
     try {
         const res = await fetch('/frames/'+id)

@@ -1,6 +1,12 @@
 import React from 'react'
 import { useState} from 'react';
 
+/**
+ * User can add info about the movie/film, seperate from the info about any individual frame
+ * 
+ * @param {} setUpload1Content - state for content in this form step
+ * @param {} setUpload1Submitted - bool for updating parent form
+ */
 export default function UploadForm1({ setUpload1Content, setUpload1Submitted }) {
 
     const handleSubmit = event => {
@@ -17,7 +23,6 @@ export default function UploadForm1({ setUpload1Content, setUpload1Submitted }) 
             "colorist": colorist,
             "makeup": makeup,
             "wardrobe": wardrobe}
-        console.log(obj);
         setUpload1Content(obj)
         console.log("Submit Form 1");
         setUpload1Submitted(true)

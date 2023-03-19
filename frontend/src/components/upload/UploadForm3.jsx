@@ -1,16 +1,27 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
 
+/**
+ * User can tag elements inside the specifc individual frame
+ * 
+ * @param {} files - list of files from step 2
+ * @param {} setUpload3Content - state for content in this form step
+ * @param {} setUpload3Submitted - bool for updating parent form
+ * @param {String} title - styling element
+ * @param {String} type  - styling element
+ */
 export default function UploadForm3({ files, setUpload3Content, setUpload3Submitted, title, type }) {
-    // state for each image, 
-    // array of objects where arr.len == number of images
+    
+    // State for each image, 
+    // Array of objects where arr.len == number of images
     const [frameInfo, setFrameInfo] = useState([
         { file: "", tags: "" }
     ]);
     
+    // For each file from form part 2 (files), 
+    // Create a new frame and add to frameInfo
     useEffect(() => {
         setFrameInfo([])
-        //setup frame info
         files.forEach(element => {
             let newFrame = { file: element, tags: "" }
             setFrameInfo(prevState => [...prevState, newFrame])
@@ -19,21 +30,19 @@ export default function UploadForm3({ files, setUpload3Content, setUpload3Submit
         setFrameInfo(prevState => prevState.slice(0))
     }, [files]);
 
-    //use another useEffect to log frameInfo
-    // This is because useEffect runs after the render, but before React updates the DOM
-    useEffect(() => {
-      console.log("Update:", frameInfo);
-    }, [frameInfo]);
+    // use another useEffect to log frameInfo
+    // useEffect(() => {
+    //   console.log("Update:", frameInfo);
+    // }, [frameInfo]);
 
     const handleFormChange = (index, event) => {
         let data = [...frameInfo];
         data[index][event.target.name] = event.target.value;
         setFrameInfo(data);
-     }
+    }
 
     const handleSubmit = event => {
         event.preventDefault();
-        
         setUpload3Content(frameInfo)
         console.log("Submit Form 3");
         setUpload3Submitted(true)

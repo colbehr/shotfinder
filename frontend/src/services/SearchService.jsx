@@ -13,13 +13,14 @@ export default function useFrameSearch(query, pageNumber) {
         setFrames([])
     }, [query])
 
+    // update with new data
     useEffect(() => {
         let cancel
         setLoading(true)
         setError(false)
         axios({
             method: 'GET',
-            url: "/frames/find",
+            url: "/frames/",
             params: {
                 search: query,
                 page: pageNumber,

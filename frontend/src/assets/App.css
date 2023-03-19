@@ -228,8 +228,8 @@ body {
   color: #777;
 }
 .formProgress p::before {
-  content: " »";
-  margin: .5rem;
+  content: "›";
+  margin: 1rem;
 }
 
 .formProgress p:first-child:before

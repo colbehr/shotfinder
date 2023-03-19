@@ -1,16 +1,22 @@
 import React from 'react'
 import { FileUploader } from "react-drag-drop-files";
-const fileTypes = ["JPG", "PNG"];
 
+/**
+ * Quick form step for the user to add images to form
+ * 
+ * @param {} setUpload2Content - state for content in this form step
+ * @param {} setUpload2Submitted - bool for updating parent form
+ * @param {} title - styling element
+ * @param {} type  - styling element
+ */
 export default function UploadForm2({ setUpload2Content, setUpload2Submitted, title, type }) {
+    const fileTypes = ["JPG", "PNG", "JPEG"];
    
     const handleChange = (files) => {
-        console.log(files);
         setUpload2Content(files);
         console.log("Submit Form 2");
         setUpload2Submitted(true)
     };
-
 
     return (
         <>

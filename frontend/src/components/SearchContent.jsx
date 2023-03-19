@@ -1,6 +1,13 @@
 import React from 'react'
 import SearchedContentItem from './SearchedContentItem'
 
+/**
+ * Handles the creation of each SearchedContentItem (frame)
+ * @param {*} frames 
+ * @param {*} loading 
+ * @param {*} error 
+ * @param {*} lastFrameElementRef 
+ */
 export default function SearchContent({ frames, loading, error, lastFrameElementRef }) {
     return (
         <div className='p-3'>
@@ -24,9 +31,11 @@ export default function SearchContent({ frames, loading, error, lastFrameElement
                         tags={item.tags} />
                 })}
             </div>
-            <div className='text-center mt-5 text-secondary'> {loading && 'Loading more...'}</div>
+            <div className='text-center mt-5 text-secondary'> 
+                {loading ? <div className="spinner-border text-light" role="status"></div> : ""}
+            </div>
             <div className='text-center mt-5 text-secondary'> {error && 'Error'}</div>
-            <div className='text-center mt-5 text-secondary'> No frames to load... 😢  </div>
+            <div className='text-center mt-5 text-secondary'> {!loading ?  "No more frames to load... 😢" : "" } </div>
         </div>
     )
 }

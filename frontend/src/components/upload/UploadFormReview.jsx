@@ -2,62 +2,70 @@ import React from 'react'
 import { useEffect, useState } from 'react';
 import axios from "axios";
 import { Link } from 'react-router-dom'
+/**
+ * Final upload page, user can review before hitting submit
+ * When submit is pressed files are posted to /frames
+ * 
+ * @param {} upload1Content - Movie info from form part 1 
+ * @param {} upload3Content - Both files from part 2 and tags from part 3 combined (these were combined in step 2) 
+ */
+ /*  Format of json object posted to db
+    {
+        "img": img,
+        "movieInfo": {
+          "title": "",
+          "year": "",
+          "imdb": "",
+          "type": "",
+          "director": "",
+          "cinematographer": "",
+          "editor": "",
+          "setDesigner": "",
+          "colorist": "",
+          "makeup": "",
+          "wardrobe": ""
+        },
+        "tags": ""
+      }
+*/
 
-export default function UploadFormReview({ upload1Content, upload2Content, upload3Content }) {
+export default function UploadFormReview({ upload1Content, upload3Content }) {
     const [submissionState, setSubmissionState] = useState([]);
     const [totalFrames, setTotalFrames] = useState(0);
     const [uploadedFrames, setUploadedFrames] = useState(0);
     const [uploadFinished, setUploadFinished] = useState(false);
     const [isDisabled, setDisabled] = useState(false);
-    // Format of our json object
-    // {
-    //     "img": img,
-    //     "movieInfo": {
-    //       "title": "",
-    //       "year": "",
-    //       "imdb": "",
-    //       "type": "",
-    //       "director": "",
-    //       "cinematographer": "",
-    //       "editor": "",
-    //       "setDesigner": "",
-    //       "colorist": "",
-    //       "makeup": "",
-    //       "wardrobe": ""
-    //     },
-    //     "tags": ""
-    //   }
 
 
+    // Fix up json to look nice for the db and display
+    //
+    // Each frame gets a copy of the movie info (upload1Content)
+    // We merge upload1Content into upload3Content for simplicity
     useEffect(() => {
-        //fix up json to look nice for the db and display
-        //setup frame info
         let newState = []
+        // count frames as we go for upload progress bar
         let numberOfFrames = 0
         upload3Content.forEach(element => {
             element["movieInfo"] = upload1Content
-            element["path"] = element["file"].name
             newState.push(element)
             numberOfFrames++
         });
         setTotalFrames(numberOfFrames)
         setSubmissionState(newState)
-
     }, [upload1Content, upload3Content]);
 
-
+    //when all frames are uploaded, update the page to display message
     useEffect(() => {
-        if (uploadedFrames === totalFrames && totalFrames > 1) {
+        if (uploadedFrames === totalFrames && totalFrames > 0) {
             setUploadFinished(true)
             console.log("Finished Uploading");
         }
     }, [uploadedFrames, totalFrames]);
 
-    //use another useEffect to log frameInfo
-    // This is because useEffect runs after the render, but before React updates the DOM
-    useEffect(() => {
-        console.log("Update:", upload3Content);
-    }, [submissionState, upload3Content]);
+    // //use another useEffect to log frameInfo
+    // useEffect(() => {
+    //     console.log("Update:", upload3Content);
+    // }, [submissionState, upload3Content]);
 
 
     const handleSubmit = event => {
@@ -67,7 +75,7 @@ export default function UploadFormReview({ upload1Content, upload2Content, uploa
         // start loader
         console.log("Submit");
         setUploadedFrames(0)
-        // foreach frame
+        // foreach frame create form data and post to frames route
         submissionState.forEach(frame => {
             var form_data = new FormData();
             for (var key in frame) {
@@ -79,7 +87,7 @@ export default function UploadFormReview({ upload1Content, upload2Content, uploa
                     form_data.append(key, frame[key]);
                 }
             }
-            // post
+            // post single frame to frames route
             axios.post('http://127.0.0.1:3001/frames', form_data, { headers: { 'Content-Type': 'multipart/form-data' } }).then((res) => {
                 console.log(res);
                 setUploadedFrames(prevState => prevState + 1);
@@ -108,8 +116,8 @@ export default function UploadFormReview({ upload1Content, upload2Content, uploa
                                 <button type="submit" disabled={isDisabled} className="btn btn-primary mt-3">Submit</button>
                             </form>
                         </div>
-                        //show this
-                        : <div className='col-12 text-center'><h2>Thanks!</h2> <Link to={"/Search" }>Back to Home</Link></div>
+                        //show this when upload is finished
+                        : <div className='col-12 text-center'><h2>Thanks!</h2> <Link to={"/search" }>Back to Home</Link></div>
                     }
                 </div>
             </div>

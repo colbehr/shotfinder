@@ -2,8 +2,12 @@ import React from 'react';
 import { useState, useEffect } from "react";
 import Select from 'react-select'
 
-
-export default function SearchBar({ searchTerm, setSearchTerm }) {
+/**
+ * The select element for searching tags, gets used in the navbar additionalComponent
+ * @param {} searchTerm 
+ * @param {} setSearchTerm 
+ */
+export default function SearchBar({ setSearchTerm }) {
     const [options, setOptions] = useState([])
     const [tagSearchTerm, setTagSearchTerm] = useState("")
 
@@ -17,7 +21,7 @@ export default function SearchBar({ searchTerm, setSearchTerm }) {
         };
     }, []);
 
-    //when a new key is pressed, we requery the tag db for some new search terms
+    //When a new key is pressed, we requery the tag db for some new search terms
     useEffect(() => {
         fetch('http://localhost:3001/tags?search=' + tagSearchTerm)
             .then(response => response.json())
