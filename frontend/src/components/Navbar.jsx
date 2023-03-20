@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 
 /**
- * Takes a additional Component, so we can add a searchbar, loading bar , or nothing based on which page we are on.
+ * Takes a additional Component, so we can add a searchbar, loading bar, or nothing based on which page we are on.
  * 
  * @param {*} AdditionalComponent 
  */
