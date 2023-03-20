@@ -8,7 +8,7 @@ export default function UploadNavbarMid( {step=1} ) {
         color: "white",
     };
 
-    return  <div className="formProgress justify-content-center mt-2 ">
+    return  <div className="formProgress justify-content-center">
                 <p style={step >= 1 ? activeStyle : {}}>
                     Import Film Data
                 </p>

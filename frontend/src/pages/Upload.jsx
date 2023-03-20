@@ -14,7 +14,7 @@ export default function Upload() {
     const [step, setStep] = useState(1)
     
     return <>
-        <NavBar MiddleComponent={ <UploadNavbarMid step={step}/> }/>
+        <NavBar AdditionalComponent={ <UploadNavbarMid step={step}/> }/>
         <UploadForm setStep={setStep}/>
    </>
 }

@@ -46,17 +46,33 @@ export default function SearchBar({ setSearchTerm }) {
         setTagSearchTerm("")
         console.log("Search: ", str.substring(1));
     }
-
+    const style = {
+        control: base => ({
+          ...base,
+          border: 0,
+          // This line disable the blue border
+          boxShadow: 'none'
+          
+        })
+      };
 
     return (
         <>
             <Select
                 isMulti
                 options={options}
-                className="selectNav basic-multi-select mt-2"
+                className="selectNav basic-multi-select"
                 classNamePrefix="select"
                 placeholder={'Grass, Close Up, Day'}
                 onChange={handleChange}
+                styles={style}
+                theme={(theme) => ({
+                    ...theme,
+                    colors: {
+                      ...theme.colors,
+                      primary25: '#ADB5B8',
+                      primary: 'black',
+                }})}
             />
         </>
     )
