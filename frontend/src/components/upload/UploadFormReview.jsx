@@ -1,6 +1,6 @@
 import React from 'react'
 import { useEffect, useState } from 'react';
-import axios from "axios";
+import { postFrames } from '../../services/FrameService';
 /**
  * Final upload page, user can review before hitting submit
  * When submit is pressed files are posted to /frames
@@ -58,7 +58,7 @@ export default function UploadFormReview({ upload1Content, upload3Content, setUp
             console.log("Finished Uploading");
             setUpload4Submitted(true)
         }
-    }, [uploadedFrames, totalFrames]);
+    }, [uploadedFrames, totalFrames, setUpload4Submitted]);
 
     // //use another useEffect to log frameInfo
     // useEffect(() => {
@@ -85,13 +85,10 @@ export default function UploadFormReview({ upload1Content, upload3Content, setUp
                     form_data.append(key, frame[key]);
                 }
             }
+            
             // post single frame to frames route
-            axios.post('http://127.0.0.1:3001/frames', form_data, { headers: { 'Content-Type': 'multipart/form-data' } }).then((res) => {
-                console.log(res);
+            postFrames(form_data).then((res) => {
                 setUploadedFrames(prevState => prevState + 1);
-
-            }).catch((err) => {
-                console.error(err);
             })
         });
     }

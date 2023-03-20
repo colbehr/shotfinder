@@ -23,23 +23,20 @@ export async function getOneFrame(id){
 }
 
 
-export async function postFrames(content){
+export async function postFrames(form_data){
     try {
         const options = {
             method: 'POST',
             headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                // 'Content-Type': 'multipart/form-data' // this is default
             },
-            body: JSON.stringify( content )  
+            body: form_data
         };
-        console.log(options);
         fetch( '/frames', options)
-            .then( response => response.json() )
             .then( response => {
-                console.log(response);
+                return response
             } );
     } catch (error) {
-        return []
+        return error
     }
 }

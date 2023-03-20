@@ -24,7 +24,7 @@ export default function Frame() {
   }, [id]);
 
   useEffect(() => {
-    console.log(frame);
+    console.log("frame", frame);
   }, [frame])
   
   return (<>
