@@ -33,8 +33,9 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
   * Initial Nav
   * Basic Content Rendering
   * Infinite Scroll
-  * Basic Search
-  * Basic Upload (no images)
+  * Search with multiple tags
+  * Basic Upload with images
+  * Basic Tagging
   * Basic Single Page
   
 ## Next Steps
