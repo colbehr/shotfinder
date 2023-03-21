@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const Frame = require('../models/frame')
+const tags = require('../routes/tags')
 const multer = require('multer')
 
 const storage = multer.diskStorage({
@@ -90,8 +91,9 @@ router.get('/:id', getFrame, (req, res) => {
  * Accepts a post from the upload form, posts to database and uploads 
  */
 router.post('/', upload.single('file'), async (req, res) => {
-    //get url
-    const url = req.protocol + '://' + req.get('host') + '/' + req.file.path;
+    //get url 
+    //req.protocol + '://' + req.get('host') + 
+    const url = '/' + req.file.path.replace('\\','/');
     // console.log("Uploaded", req.body);
     let movieInfo = {}
     movieInfo["title"] = req.body.title.trim()
@@ -110,6 +112,11 @@ router.post('/', upload.single('file'), async (req, res) => {
     tagsFormatted = tagsFormatted.map(tag => tag.trim());
     tagsFormatted = tagsFormatted.map(tag => tag.toLowerCase());
     console.log(tagsFormatted);
+
+    //calls the route from tags.js to send tags to db
+    tagsFormatted.forEach(tag => {
+        tags.postTag(tag)
+    });
 
     const frame = new Frame({
         frameURL: url,
@@ -181,6 +188,38 @@ async function getFrame(req, res, next) {
     res.frame = frame
     next()
 }
+
+// A route for debugging purposes, move to top when in use
+// router.get('/debug', async (req, res) => {
+//     console.log("debug");
+//     try {
+//         const frames = await Frame.find()
+//         let convertedFrames = frames.map(frame => {
+//             frame.frameURL = frame.frameURL.replace("http://127.0.0.1:3001", "")
+//             frame.frameURL = frame.frameURL.replace('\\','/');
+//             return { frame };
+//         });
+//         convertedFrames.forEach(frame => {
+//             frame = frame.frame
+//             console.log(frame.tags);
+//             Frame.findByIdAndUpdate (
+//                 frame._id, // filter by _id
+//                 frame, // update data
+//                 { upsert: true }, // upsert option
+//                 function (err) { // callback
+//                   if (err) {
+//                     console.error (err);
+//                   }
+//                 }
+//               );
+            
+//         });
+//         res.json(convertedFrames)
+
+//     } catch (error) {
+//         res.status(500).json({ message: error.message })
+//     }
+// })
 
 
 module.exports = router

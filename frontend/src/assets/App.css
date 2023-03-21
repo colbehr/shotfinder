@@ -225,7 +225,6 @@ body {
 
 .formProgress p:first-child:before
 {
-  
   margin: 0;
   content: '';
 }

@@ -42,7 +42,7 @@ app.use('/frames', framesRouter)
  */
 const tagsRouter = require('./routes/tags')
 
-app.use('/tags', tagsRouter)
+app.use('/tags', tagsRouter.router)
 
 /**
  * default route 

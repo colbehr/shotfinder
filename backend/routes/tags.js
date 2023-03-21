@@ -36,9 +36,16 @@ router.get('/', async (req, res) => {
  * Accepts a single tag string, posts to database and uploads 
  */
 router.post('/', async (req, res) => {
+        let response =  postTag(req.body.tag, res)
+        res.json(response)
+})
 
-    let userTag = req.body.tag
-    console.log(req.body);
+/**
+ * @name postTag
+ * Has to be seperated in case we want to call the function from frames.js when posting a frame
+ */
+async function postTag(userTag, res){
+    console.log(userTag);
     if (userTag) {
         userTag = userTag.trim();
         userTag = userTag.toLowerCase();
@@ -47,18 +54,16 @@ router.post('/', async (req, res) => {
         const tag = new Tag({
             tag: userTag,
         });
-
         try {
             const newTag = await tag.save()
-            res.status(201).json(tag)
+            return newTag
         } catch (error) {
-            res.status(400).json({ message: error.message })
+            return { message: error.message }
         }
     } else {
-        res.status(400).json({ message: "Submit a tag" })
+        return { message: "Submit a tag" }
     }
-
-})
+}
 
 // compare function that keeps strings that match at the start at the front
 function compareFn(a, b, searchTerm) {
@@ -83,4 +88,4 @@ function compareFn(a, b, searchTerm) {
     return a.tag.localeCompare(b.tag);
 }
 
-module.exports = router
+module.exports = { router: router, postTag: postTag }

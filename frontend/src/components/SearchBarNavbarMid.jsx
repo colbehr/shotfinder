@@ -23,7 +23,7 @@ export default function SearchBar({ setSearchTerm }) {
 
     //When a new key is pressed, we requery the tag db for some new search terms
     useEffect(() => {
-        fetch('http://localhost:3001/tags?search=' + tagSearchTerm)
+        fetch('/tags?search=' + tagSearchTerm)
             .then(response => response.json())
             .then(data => {
                 data.map(x => {
