@@ -139,15 +139,9 @@ router.post('/', upload.single('file'), async (req, res) => {
  * update database 
  */
 router.patch('/:id', getFrame, async (req, res) => {
-    if (req.body.name != null) {
-        res.frame.name = req.body.name
-    }
-    if (req.body.filmName != null) {
-        res.frame.filmName = req.body.filmName
-    }
-    if (req.body.frameURL != null) {
-        res.frame.frameURL = req.body.frameURL
-    }
+    console.log(req.body, res.frame);
+    res.frame.movieInfo = req.body.movieInfo
+    res.frame.tags = req.body.tags
     res.frame.updateDate = Date.now()
     try {
         const updatedFrame = await res.frame.save()

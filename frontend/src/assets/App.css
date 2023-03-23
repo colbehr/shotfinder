@@ -121,11 +121,12 @@ body {
 }
 
 .searchedContentItem .tags p {
-  margin: 0 5px;
-  background-color: #303536;
+  margin: 0 3px;
+  background-color: #181A1B;
   color: #e7eaea;
-  padding: 3px 5px;
-  border-radius: 3px;
+  padding: 1px 5px;
+  border-radius: 2px;
+  font-size: 80%;
   width: max-content;
 }
 

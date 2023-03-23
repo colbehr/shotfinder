@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import Tag from './Tag';
 
 /**
  * A small image for display in searches,
@@ -44,7 +45,7 @@ export default function SearchedContentItem({ id, url, filmName, lastFrameElemen
                     <div className='tags'>
                         {tags.map((tag, index) => {
                             tag = tag.trim()
-                            return <p key={index}>{tag[0].toUpperCase() + tag.substring(1)}</p>
+                            return <Tag index={index} tag={tag}/>
                         })}
                     </div>
                 </div>

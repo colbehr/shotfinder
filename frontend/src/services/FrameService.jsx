@@ -40,3 +40,25 @@ export async function postFrames(form_data){
         return error
     }
 }
+
+export async function patchFrames(jsonData){
+    console.log(jsonData);
+    try {
+        const options = {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(jsonData)
+        };
+        fetch( '/frames/'+jsonData._id, options)
+            .then( res => {
+                console.log(res);
+            })
+            .then( response => {
+                return response
+            } );
+    } catch (error) {
+        return error
+    }
+}
