@@ -139,7 +139,7 @@ router.post('/', upload.single('file'), async (req, res) => {
  * update database 
  */
 router.patch('/:id', getFrame, async (req, res) => {
-    console.log(req.body, res.frame);
+    // console.log(req.body, res.frame);
     res.frame.movieInfo = req.body.movieInfo
     res.frame.tags = req.body.tags
     res.frame.updateDate = Date.now()

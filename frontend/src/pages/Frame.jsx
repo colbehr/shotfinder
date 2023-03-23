@@ -25,7 +25,7 @@ export default function Frame() {
 
     const handleSubmit = event => {
         event.preventDefault();
-        console.log("Submit");
+        console.log("Submit", frame);
         patchFrames(frame)
     }
 
@@ -155,6 +155,12 @@ export default function Frame() {
                                 <option value="Short Film">Short Film</option>
                                 <option value="Commercial">Commercial</option>
                             </select>
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="type" className="form-label">Tags</label>
+                            <textarea class="form-control" id="" rows="3" defaultValue={frame.tags} 
+                                onChange={(e) => { let newFrame = frame; newFrame.tags = e.target.value.split(","); setFrame(newFrame) }} >
+                                </textarea>
                         </div>
                     </div>
                 }
