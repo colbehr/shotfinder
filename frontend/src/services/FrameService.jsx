@@ -42,7 +42,6 @@ export async function postFrames(form_data){
 }
 
 export async function patchFrames(jsonData){
-    console.log(jsonData);
     try {
         const options = {
             method: 'PATCH',
