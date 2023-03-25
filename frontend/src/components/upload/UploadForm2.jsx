@@ -20,7 +20,7 @@ export default function UploadForm2({ setUpload2Content, setUpload2Submitted, ti
 
     return (
         <>
-            <div className="container mt-5 min-vh-100">
+            <div className="container mt-5">
                 <div className="row justify-content-md-center">
                     <div className="col-5">
                         <h3>{title}</h3>

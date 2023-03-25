@@ -44,14 +44,14 @@ export default function UploadForm1({ setUpload1Content, setUpload1Submitted }) 
 
     return (
         <>
-            <div className="container mt-5">
+            <div className="container mt-5" >
                 <div className="row justify-content-md-center">
                     <div className='col-6'>
                         <h3>Upload Frames</h3>
 
                         <p>This form guides you through the process of uploading and tagging frames with unique data. It starts by collecting data about the film, then lets you upload the frames, and finally allows you to tag each frame with customized information.</p>
                         <form onSubmit={e => {handleSubmit(e)}}>
-                            <div className="mb-3">
+                            <div className="mb-3" >
                                 <label htmlFor="title" className="form-label">Title</label>
                                 <input type="text" className="form-control" id="title" placeholder='Pulp Fiction' required value={title} onChange={e => setTitle(e.target.value)}/>
                             </div>
