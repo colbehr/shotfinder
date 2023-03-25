@@ -1,6 +1,21 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
 
+import { Swiper,  SwiperSlide } from "swiper/react";
+import { Navigation} from 'swiper';
+
+// configure Swiper to use modules
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/navigation";
+
+// Swiper.use([Navigation]);
+
+// import required modules
+// Swiper.use([Navigation]);
+
+
 /**
  * User can tag elements inside the specifc individual frame
  * 
@@ -11,13 +26,13 @@ import { useState, useEffect } from 'react';
  * @param {String} type  - styling element
  */
 export default function UploadForm3({ files, setUpload3Content, setUpload3Submitted, title, type }) {
-    
+
     // State for each image, 
     // Array of objects where arr.len == number of images
     const [frameInfo, setFrameInfo] = useState([
         { file: "", tags: "" }
     ]);
-    
+
     // For each file from form part 2 (files), 
     // Create a new frame and add to frameInfo
     useEffect(() => {
@@ -58,15 +73,25 @@ export default function UploadForm3({ files, setUpload3Content, setUpload3Submit
                     </div>
                 </div>
                 <div className="row justify-content-md-center   ">
-                    <div className="col-6">
-                        {frameInfo.map((item, index) => {
-                            return (<div key={index}>
-                                <img id="target" alt={index} src={item.file ? URL.createObjectURL(item.file) : null} />
-                                <label>Tags (Seperate by comma):</label>
-                                <input name="tags" placeholder='Red Shirt, Grass, Cloudy, etc.' className='form-control' value={item.tags} onChange={event => handleFormChange(index, event)}></input>
-                            </div>
-                            )
-                        })}
+                    <div className="col-12">
+                        <Swiper 
+                            navigation={true} 
+                            modules={[Navigation]} 
+                            onSlideChange={() => console.log('slide change')} 
+                            spaceBetween={50}>
+                            {frameInfo.map((item, index) => {
+                                return (
+                                <SwiperSlide key={index}>
+                                    <div>
+                                        <img id="target" alt={index} src={item.file ? URL.createObjectURL(item.file) : null} />
+                                        <label>Tags (Seperate by comma):</label>
+                                        <input name="tags" placeholder='Red Shirt, Grass, Cloudy, etc.' className='form-control' required value={item.tags} onChange={event => handleFormChange(index, event)}></input>
+                                    </div>
+                                </SwiperSlide>
+                                )
+                            })}
+
+                        </Swiper>
                     </div>
                 </div>
                 <div className="row justify-content-md-center   ">

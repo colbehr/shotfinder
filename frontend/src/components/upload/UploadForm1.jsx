@@ -29,7 +29,7 @@ export default function UploadForm1({ setUpload1Content, setUpload1Submitted }) 
     }
 
     const [title, setTitle] = useState("");
-    const [year, setYear] = useState();
+    const [year, setYear] = useState(new Date().getFullYear());
     const [imdb, setImdb] = useState("");
     const [type, setType] = useState("");
 
