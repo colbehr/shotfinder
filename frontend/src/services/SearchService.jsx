@@ -7,6 +7,7 @@ export default function useFrameSearch(query, pageNumber) {
     const [error, setError] = useState(false)
     const [frames, setFrames] = useState([])
     const [hasMore, setHasMore] = useState(false)
+    const [total, setTotal] = useState(0)
 
     //reset array when query
     useEffect(() => {
@@ -32,11 +33,12 @@ export default function useFrameSearch(query, pageNumber) {
             })
             setHasMore(res.data.frames.length > 0)
             setLoading(false)
+            setTotal(res.data.num_found)
         }).catch(e => {
             if(axios.isCancel(e)) return
             setError(true)
         })
         return () => cancel()
     }, [query, pageNumber])
-    return {loading, error, frames, hasMore}
+    return {loading, error, frames, hasMore, total}
 }

@@ -15,7 +15,7 @@ export default function Search() {
 
     const [pageNumber, setPageNumber] = useState(1)
     const [searchTerm, setSearchTerm] = useState("")
-    const { frames, loading, error, hasMore } = useFrameSearch(searchTerm, pageNumber)
+    const { frames, loading, error, hasMore, total} = useFrameSearch(searchTerm, pageNumber)
 
     const observer = useRef(null)
     const lastFrameElementRef = useCallback(node => {
@@ -44,7 +44,13 @@ export default function Search() {
     return <>
         {/* send setSearchTerm down to the searchbar component  */}
         <NavBar AdditionalComponent={<SearchBar setSearchTerm={handleSearch} />} />
-        
+        <div className="container-fluid">
+            <div className="row">
+                <div className="col-12 mt-3">
+                    <p className='mb-0 text-secondary' style={{textAlign:"right", paddingRight:"15px"}}>Showing {frames.length} Frames of {total }</p>
+                </div>
+            </div>
+        </div>
         <div className='container-fluid p-0'>
             {/* <Split className='d-flex' */}
                 {/* sizes={[25, 75]}

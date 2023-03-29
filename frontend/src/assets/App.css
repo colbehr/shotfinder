@@ -247,3 +247,7 @@ nav .formProgress p:first-child:before {
 .uploadForm3 .swiper-slide {
   padding: 0 100px;
 }
+
+.logo{
+  filter: invert(50%)  brightness(1000%) ;
+}
