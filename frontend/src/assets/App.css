@@ -81,13 +81,15 @@ body {
 
 /* https://codepen.io/chriscoyier/pen/PXGNom */
 .searchedContentItem {
-  /* width: 300px; */
   overflow: hidden;
   border-radius: 5px;
   margin: 0 1rem 1rem 0;
   flex: 1 0 auto;
   flex-grow: 25;
-  display: flex
+  display: flex;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .searchedContentItem h6 {
