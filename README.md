@@ -39,13 +39,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
   * Basic Single Page
   
 ## Next Steps
-
-  * Improve upload to include images
   * Improve upload to include some auto tagging
-  * Add filter sidebar 
-  * Improve css
-  * Improve filter to search other fields
-  * Improve filter to include tags
   * Dockerize
   * Profiles + Collections
   
