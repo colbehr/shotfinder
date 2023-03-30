@@ -72,6 +72,7 @@ export default function UploadForm1({ setUpload1Content, setUpload1Submitted }) 
                                     <option value="Music Video">Music Video</option>
                                     <option value="Short Film">Short Film</option>
                                     <option value="Commercial">Commercial</option>
+                                    <option value="Video Game">Video Game</option>
                                 </select>
                             </div>
 

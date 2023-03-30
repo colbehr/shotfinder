@@ -15,7 +15,7 @@ export default function NavBar({ AdditionalComponent }) {
             <div className="row justify-content-between h-100">
                 <div className="col-2">
                     <NavLink to="/search" className="logo-text">
-                        <img src={logo} className="logo" height={"40px"} />
+                        <img src={logo} className="logo" height={"40px"} alt="logo" />
                     </NavLink>
                 </div>
                 <div className="col-5 d-flex align-items-center">
