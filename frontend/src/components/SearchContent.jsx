@@ -8,7 +8,7 @@ import SearchedContentItem from './SearchedContentItem'
  * @param {*} error 
  * @param {*} lastFrameElementRef 
  */
-export default function SearchContent({ frames, loading, error, lastFrameElementRef }) {
+export default function SearchContent({ frames, loading, error, lastFrameElementRef, scale}) {
     return (
         <div className='p-3'>
             <div className='searchedContentContainer'>
@@ -20,7 +20,8 @@ export default function SearchContent({ frames, loading, error, lastFrameElement
                             id={item._id}
                             url={item.frameURL}
                             filmName={item.movieInfo.title}
-                            tags={item.tags} />
+                            tags={item.tags} 
+                            scale={scale}/>
 
                     }
                     return <SearchedContentItem
@@ -28,7 +29,8 @@ export default function SearchContent({ frames, loading, error, lastFrameElement
                         id={item._id}
                         url={item.frameURL}
                         filmName={item.movieInfo.title}
-                        tags={item.tags} />
+                        tags={item.tags} 
+                        scale={scale}/>
                 })}
             </div>
             <div className='text-center mt-5 text-secondary'> 

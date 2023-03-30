@@ -1,19 +1,14 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
-
-import { Swiper,  SwiperSlide } from "swiper/react";
-import { Navigation} from 'swiper';
-
-// configure Swiper to use modules
+import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
 
-// Swiper.use([Navigation]);
-
 // import required modules
-// Swiper.use([Navigation]);
+import { Navigation } from 'swiper';
+import UploadSlideContent from './UploadSlideContent';
 
 
 /**
@@ -41,14 +36,10 @@ export default function UploadForm3({ files, setUpload3Content, setUpload3Submit
             let newFrame = { file: element, tags: "" }
             setFrameInfo(prevState => [...prevState, newFrame])
         });
-        //remove first index
+        //remove first (empty) index
         setFrameInfo(prevState => prevState.slice(0))
     }, [files]);
 
-    // use another useEffect to log frameInfo
-    // useEffect(() => {
-    //   console.log("Update:", frameInfo);
-    // }, [frameInfo]);
 
     const handleFormChange = (index, event) => {
         let data = [...frameInfo];
@@ -65,42 +56,37 @@ export default function UploadForm3({ files, setUpload3Content, setUpload3Submit
 
     return (
         <>
-            <div className="container mt-5 min-vh-100 uploadForm3">
-                <div className="row justify-content-md-center   ">
+            <div className="container-fluid mt-5 uploadForm3">
+                <div className="row justify-content-md-center">
                     <div className="col-7">
                         <h3>{title}</h3>
                         <h5>{type}</h5>
                     </div>
                 </div>
-                <div className="row justify-content-md-center   ">
-                    <div className="col-12">
-                        <Swiper 
-                            navigation={true} 
-                            modules={[Navigation]} 
-                            onSlideChange={() => console.log('slide change')} 
-                            spaceBetween={50}>
-                            {frameInfo.map((item, index) => {
-                                return (
-                                <SwiperSlide key={index}>
-                                    <div>
-                                        <img id="target" alt={index} src={item.file ? URL.createObjectURL(item.file) : null} />
-                                        <label>Tags (Seperate by comma):</label>
-                                        <input name="tags" placeholder='Red Shirt, Grass, Cloudy, etc.' className='form-control' required value={item.tags} onChange={event => handleFormChange(index, event)}></input>
-                                    </div>
-                                </SwiperSlide>
-                                )
-                            })}
+                <form onSubmit={e => { handleSubmit(e) }}>
+                    <div className="row justify-content-md-center">
+                        <div className="col-12" >
+                            <Swiper
+                                navigation={true}
+                                modules={[Navigation]}
+                                spaceBetween={50}>
+                                {frameInfo.map((frame, index) => {
+                                    return (
+                                        <SwiperSlide key={index}>
+                                            <UploadSlideContent handleFormChange={handleFormChange} frame={frame} index={index} />
+                                        </SwiperSlide>
+                                    )
+                                })}
 
-                        </Swiper>
+                            </Swiper>
+                        </div>
                     </div>
-                </div>
-                <div className="row justify-content-md-center   ">
-                    <div className="col-7 mb-5">
-                        <form onSubmit={e => { handleSubmit(e) }}>
+                    <div className="row justify-content-md-center   ">
+                        <div className="col-7 mb-5">
                             <button type="submit" className="btn btn-primary mt-3">Review Submission</button>
-                        </form>
+                        </div>
                     </div>
-                </div>
+                </form>
 
             </div>
 

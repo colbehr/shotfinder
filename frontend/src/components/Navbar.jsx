@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import logo from "../assets/logo.svg"
 /**
  * Takes a additional Component, so we can add a searchbar, loading bar, or nothing based on which page we are on.
  * 
@@ -14,7 +15,7 @@ export default function NavBar({ AdditionalComponent }) {
             <div className="row justify-content-between h-100">
                 <div className="col-2">
                     <NavLink to="/search" className="logo-text">
-                        ShotFinder
+                        <img src={logo} className="logo" height={"40px"} alt="logo" />
                     </NavLink>
                 </div>
                 <div className="col-5 d-flex align-items-center">

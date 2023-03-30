@@ -13,22 +13,43 @@ import Tag from './Tag';
  * @param {*} tags - tags to display
  * @returns 
  */
-export default function SearchedContentItem({ id, url, filmName, lastFrameElementRef, tags }) {
+export default function SearchedContentItem({ id, url, filmName, lastFrameElementRef, tags, scale}) {
     let randomNum = Math.random()
     url = url.replace('\\', '/')
     let imageStyle = {
         backgroundImage: `url('${url}')`,
-        backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center',
         height: "150px",
         maxWidth: "350px",
         minWidth: "200px",
         width: (randomNum * 200) + "px",
-        flex: '1 0 auto',
-        marginRight: '10px',
-        marginBottom: '10px',
     };
+    if (scale === 2) {
+        imageStyle = {
+            backgroundImage: `url('${url}')`,
+            height: "225px",
+            maxWidth: "500px",
+            minWidth: "300px",
+            width: (randomNum * 200) + "px",
+        };
+    } else if (scale === 3){
+        imageStyle = {
+            backgroundImage: `url('${url}')`,
+            height: "325px",
+            // maxWidth: "800px",
+            minWidth: "550px",
+            width: (randomNum * 450) + "px",
+        };
+    } else if (scale === 0){
+        imageStyle = {
+            backgroundImage: `url('${url}')`,
+            height: "40px",
+            maxWidth: "60px",
+            minWidth: "40px",
+            margin:0,
+            borderRadius:0,
+            width: (randomNum * 40) + "px",
+        };
+    }
     return (
         <div className='searchedContentItem' style={imageStyle} ref={lastFrameElementRef}>
             <Link to={"/search/" + id}>
@@ -45,7 +66,7 @@ export default function SearchedContentItem({ id, url, filmName, lastFrameElemen
                     <div className='tags'>
                         {tags.map((tag, index) => {
                             tag = tag.trim()
-                            return <Tag index={index} tag={tag}/>
+                            return <Tag index={index} tag={tag} key={index}/>
                         })}
                     </div>
                 </div>
