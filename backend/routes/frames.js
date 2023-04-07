@@ -3,6 +3,7 @@ const router = express.Router()
 const Frame = require('../models/frame')
 const tags = require('../routes/tags')
 const multer = require('multer')
+const path = require('node:path');
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -156,7 +157,20 @@ router.patch('/:id', getFrame, async (req, res) => {
  * delete from database 
  */
 router.delete('/:id', getFrame, async (req, res) => {
+    const fs = require('fs')
+
     try {
+        filepath = path.normalize(process.cwd() + res.frame.frameURL);
+        console.log(filepath);
+        //remove file 
+        fs.unlink(filepath, (err) => {
+            if (err) {
+            console.error(err)
+            return
+            }
+            //file removed
+        })
+        //remove database entry
         await res.frame.remove()
         res.json({ message: 'Deleted Frame' })
     } catch (error) {

@@ -61,3 +61,20 @@ export async function patchFrames(jsonData){
         return error
     }
 }
+
+export async function deleteFrame(jsonData){
+    try {
+        const options = {
+            method: 'DELETE',
+        };
+        fetch( '/frames/'+jsonData._id, options)
+            .then( res => {
+                console.log(res);
+            })
+            .then( response => {
+                return response
+            } );
+    } catch (error) {
+        return error
+    }
+}

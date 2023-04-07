@@ -2,8 +2,11 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import NavBar from '../components/Navbar';
-import { getOneFrame, patchFrames } from '../services/FrameService';
+import { getOneFrame, patchFrames, deleteFrame } from '../services/FrameService';
 
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import ModalDialog from 'react-bootstrap/esm/ModalDialog';
 
 /**
  * Page for an individual frame, showing the frame 
@@ -13,6 +16,11 @@ export default function Frame() {
     const [editMode, setEditMode] = useState(false)
     const [frame, setFrame] = useState({ movieInfo: {} })
     const { id } = useParams();
+
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     useEffect(() => {
         async function fetchData() {
@@ -29,6 +37,22 @@ export default function Frame() {
         patchFrames(frame)
     }
 
+    const handleDelete = async event => {
+        event.preventDefault();
+        console.log("Delete", frame);
+        try {
+          await deleteFrame(frame) 
+          // this runs after deleteFrame is done
+          redirect()
+        } catch (error) {
+          // this runs if deleteFrame throws an error
+          console.error(error)
+        }
+      }
+
+    const redirect = () => {
+        window.location.replace('/search');
+    }
     return (<>
         <NavBar />
         <div className="container" style={{ minHeight: '100vh' }}>
@@ -42,9 +66,15 @@ export default function Frame() {
                     <img src={frame.frameURL} alt="Movie Frame" style={{ maxWidth: '100%', borderRadius: "10px" }} />
                 </div>
                 <div className="col-md-12 text-end">
+                    
                     {editMode ?
-                        <button className='btn btn-danger' onClick={(e) => { setEditMode(false); handleSubmit(e) }}>Save</button> :
-                        <button className='btn btn-dark' onClick={(e) => { setEditMode(true) }}>Edit</button>
+                        <button className='btn btn-success' onClick={(e) => { setEditMode(false); handleSubmit(e) }}>Save</button>  :
+                        <button className='btn btn-dark'   onClick={(e) => { setEditMode(true) }}>Edit</button>
+                    }
+                                        
+                    {editMode ?
+                        <button className='btn btn-danger ms-3' onClick={handleShow}>Delete</button>  :
+                        ""
                     }
                 </div>
             </div>
@@ -160,12 +190,24 @@ export default function Frame() {
                             <label htmlFor="type" className="form-label">Tags</label>
                             <textarea class="form-control" id="" rows="3" defaultValue={frame.tags} 
                                 onChange={(e) => { let newFrame = frame; newFrame.tags = e.target.value.split(","); setFrame(newFrame) }} >
-                                </textarea>
+                            </textarea>
                         </div>
                     </div>
                 }
             </div>
         </div>
+      <Modal show={show} onHide={handleClose} aria-labelledby="contained-modal-title-vcenter" centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Are you sure you want to delete this?</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Deleting this frame is permanent and cannot be undone.</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Cancel
+          </Button>
+          <button className='btn btn-danger' onClick={(e) => {handleClose(); setEditMode(false); handleDelete(e);}}>Delete</button>
+        </Modal.Footer>
+      </Modal>
 
     </>
     )
