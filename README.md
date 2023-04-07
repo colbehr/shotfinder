@@ -23,20 +23,6 @@ pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-
-
-## Release History
-
-* 0.1.0
-  * Initial build
-  * Initial Nav
-  * Basic Content Rendering
-  * Infinite Scroll
-  * Search with multiple tags
-  * Basic Upload with images
-  * Basic Tagging
-  * Basic Single Page
   
 ## Next Steps
   * Improve upload to include some auto tagging
