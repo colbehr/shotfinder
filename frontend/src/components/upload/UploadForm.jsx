@@ -22,6 +22,7 @@ export default function UploadForm({setStep}) {
     const [upload4Submitted, setUpload4Submitted] = useState(false)
     
     useEffect(() => {
+      console.log(JSON.stringify(upload2Content));
       setStep((upload1Submitted? 1 : 0) + (upload2Submitted? 1 : 0) + (upload3Submitted? 1 : 0) + 1)
     }, [upload1Submitted,upload2Submitted,upload3Submitted, setStep])
     

@@ -161,7 +161,7 @@ router.delete('/:id', getFrame, async (req, res) => {
 
     try {
         filepath = path.normalize(process.cwd() + res.frame.frameURL);
-        console.log(filepath);
+        console.log("DELETE:",filepath);
         //remove file 
         fs.unlink(filepath, (err) => {
             if (err) {
