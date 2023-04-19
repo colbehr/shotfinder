@@ -6,7 +6,6 @@ import { getOneFrame, patchFrames, deleteFrame } from '../services/FrameService'
 
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import ModalDialog from 'react-bootstrap/esm/ModalDialog';
 
 /**
  * Page for an individual frame, showing the frame 
@@ -63,7 +62,7 @@ export default function Frame() {
             </div>
             <div className="row mb-2">
                 <div className="col-md-12 text-center mb-2">
-                    <img src={frame.frameURL} alt="Movie Frame" style={{ maxWidth: '100%', borderRadius: "10px" }} />
+                    <img src={"http://localhost:3001" + frame.frameURL} alt="Movie Frame" style={{ maxWidth: '100%', borderRadius: "10px" }} />
                 </div>
                 <div className="col-md-12 text-end">
                     

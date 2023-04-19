@@ -23,10 +23,21 @@ pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-  
+## Docker Setup
+```
+docker-compose up
+```
+I also set up the database in MongoDBCompass 
+
+- Database Name:
+  - frames
+  - Collection Names:
+    - tags
+    - frames
+
+
 ## Next Steps
   * Improve upload to include some auto tagging
-  * Dockerize
   * Profiles + Collections
   
 

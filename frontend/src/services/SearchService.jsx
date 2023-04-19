@@ -21,7 +21,7 @@ export default function useFrameSearch(query, pageNumber) {
         setError(false)
         axios({
             method: 'GET',
-            url: "/frames/",
+            url: "http://localhost:3001/frames/",
             params: {
                 search: query,
                 page: pageNumber,
@@ -37,6 +37,7 @@ export default function useFrameSearch(query, pageNumber) {
         }).catch(e => {
             if(axios.isCancel(e)) return
             setError(true)
+            console.log("Error : ", e)
         })
         return () => cancel()
     }, [query, pageNumber])

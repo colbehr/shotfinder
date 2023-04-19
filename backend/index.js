@@ -7,6 +7,8 @@ const db = require("./db");
 const app = express();
 //connection from db
 db.connect(app);
+
+
 //accept json
 app.use(express.json())
 

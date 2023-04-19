@@ -56,8 +56,8 @@ export default function UploadForm3({ files, setUpload3Content, setUpload3Submit
 
     return (
         <>
-            <div className="container-fluid mt-5 uploadForm3">
-                <div className="row justify-content-md-center">
+            <div className="container-fluid uploadForm3">
+                <div className="row justify-content-md-center mt-5">
                     <div className="col-7">
                         <h3>{title}</h3>
                         <h5>{type}</h5>
@@ -81,7 +81,7 @@ export default function UploadForm3({ files, setUpload3Content, setUpload3Submit
                             </Swiper>
                         </div>
                     </div>
-                    <div className="row justify-content-md-center   ">
+                    <div className="row justify-content-md-center">
                         <div className="col-7 mb-5">
                             <button type="submit" className="btn btn-primary mt-3">Review Submission</button>
                         </div>

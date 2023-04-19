@@ -14,6 +14,7 @@ exports.connect = (app) => {
   const connectWithRetry = () => {
     mongoose.Promise = global.Promise;
     console.log("MongoDB connection with retry");
+    console.log("URI:" + process.env.MONGODB_URI);
     mongoose
       .connect(process.env.MONGODB_URI, options)
       .then(() => {

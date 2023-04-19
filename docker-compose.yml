@@ -1,0 +1,62 @@
+services:
+  frontend:
+    container_name: shotfinder_client
+    restart: unless-stopped
+    image: shotfinder_client:0.1.0
+    build:
+      context: frontend
+      target: production
+      dockerfile: Dockerfile
+    # stdin_open: true
+    volumes:
+      # - ./frontend:/usr/src/app
+      - /usr/src/client/node_modules
+    ports:
+      - 3000:3000
+    networks:
+      - react-express
+    depends_on:
+      - backend
+
+  backend:
+    container_name: shotfinder_api
+    restart: unless-stopped
+    image: shotfinder_api:0.1.0
+    build:
+      context: backend
+      target: production
+      dockerfile: Dockerfile
+    volumes:
+      - ~/shotfinder/uploads:/usr/src/api/uploads
+      - /usr/src/api/node_modules
+    ports: 
+      - 3001:3001
+    networks:
+      - express-mongo
+      - react-express
+    depends_on:
+      - mongo
+    environment: 
+      MONGODB_URI: mongodb://host.docker.internal:27017/
+
+  mongo:
+    restart: always
+    image: mongo
+    volumes:
+      - ~/shotfinder/data:/data/db
+    ports:
+      - 27017:27017
+    networks:
+      - express-mongo
+
+  ping:
+    image: alpine
+    networks:
+      - react-express
+      - express-mongo
+    command: ping -c 3 127.0.0.1:27017
+
+networks:
+  react-express:
+  express-mongo:
+    internal: true

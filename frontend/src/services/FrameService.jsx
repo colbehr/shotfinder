@@ -1,8 +1,9 @@
 export async function getAllFrames(){
     try {
-        const res = await fetch('/frames')
+        const res = await fetch('http://localhost:3001/frames').then()
         return await res.json()
     } catch (error) {
+        console.log(error);
         return []
     }
 }
@@ -15,9 +16,10 @@ export async function getAllFrames(){
  */
 export async function getOneFrame(id){
     try {
-        const res = await fetch('/frames/'+id)
+        const res = await fetch('http://localhost:3001/frames/'+id)
         return await res.json()
     } catch (error) {
+        console.log(error);
         return []
     }
 }
@@ -32,11 +34,12 @@ export async function postFrames(form_data){
             },
             body: form_data
         };
-        fetch( '/frames', options)
+        fetch( 'http://localhost:3001/frames', options)
             .then( response => {
                 return response
             } );
     } catch (error) {
+        console.log(error);
         return error
     }
 }
@@ -50,7 +53,7 @@ export async function patchFrames(jsonData){
             },
             body: JSON.stringify(jsonData)
         };
-        fetch( '/frames/'+jsonData._id, options)
+        fetch( 'http://localhost:3001/frames/'+jsonData._id, options)
             .then( res => {
                 console.log(res);
             })
@@ -58,6 +61,7 @@ export async function patchFrames(jsonData){
                 return response
             } );
     } catch (error) {
+        console.log(error);
         return error
     }
 }
@@ -67,7 +71,7 @@ export async function deleteFrame(jsonData){
         const options = {
             method: 'DELETE',
         };
-        fetch( '/frames/'+jsonData._id, options)
+        fetch( 'http://localhost:3001/frames/'+jsonData._id, options)
             .then( res => {
                 console.log(res);
             })
@@ -75,6 +79,7 @@ export async function deleteFrame(jsonData){
                 return response
             } );
     } catch (error) {
+        console.log(error);
         return error
     }
 }
