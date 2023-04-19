@@ -23,6 +23,8 @@ pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+[Check out the Wiki for more info on the API](https://github.com/colbehr/shotfinder/wiki)
 ## Docker Setup
 ```
 docker-compose up
