@@ -23,19 +23,19 @@ export default function SearchBar({ setSearchTerm }) {
 
     //When a new key is pressed, we requery the tag db for some new search terms
     useEffect(() => {
-        fetch('/tags?search=' + tagSearchTerm)
-            .then(response => response.json())
-            .then(data => {
-                data.map(x => {
-                    x.label = x.tag[0].toUpperCase() + x.tag.substring(1);
-                    x.value = x.tag;
-                    return x
-                })
-                setOptions(data);
+        fetch('http://localhost:3001/tags?search=' + tagSearchTerm)
+        .then(response => response.json())
+        .then(data => {
+            data.map(x => {
+                x.label = x.tag[0].toUpperCase() + x.tag.substring(1);
+                x.value = x.tag;
+                return x
             })
-            .catch(error => {
-                console.error(error);
-            });
+            setOptions(data);
+        })
+        .catch(error => {
+            console.error(error);
+        });
     }, [tagSearchTerm])
 
     //when enter is hit, then we set the search term and find new frames
