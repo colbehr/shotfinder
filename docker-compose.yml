@@ -49,13 +49,6 @@ services:
     networks:
       - express-mongo
 
-  ping:
-    image: alpine
-    networks:
-      - react-express
-      - express-mongo
-    command: ping -c 3 127.0.0.1:27017
-
 networks:
   react-express:
   express-mongo:
