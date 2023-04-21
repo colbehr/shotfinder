@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from "react";
 import Select from 'react-select'
-
+import {searchTags} from "../services/FrameService";
 /**
  * The select element for searching tags, gets used in the navbar additionalComponent
  * @param {} searchTerm 
@@ -23,19 +23,16 @@ export default function SearchBar({ setSearchTerm }) {
 
     //When a new key is pressed, we requery the tag db for some new search terms
     useEffect(() => {
-        fetch('http://localhost:3001/tags?search=' + tagSearchTerm)
-        .then(response => response.json())
-        .then(data => {
-            data.map(x => {
+        async function fetchData() {
+            const responseData = await searchTags(tagSearchTerm);
+            responseData.map(x => {
                 x.label = x.tag[0].toUpperCase() + x.tag.substring(1);
                 x.value = x.tag;
                 return x
             })
-            setOptions(data);
-        })
-        .catch(error => {
-            console.error(error);
-        });
+            setOptions(responseData);
+        }
+        fetchData();
     }, [tagSearchTerm])
 
     //when enter is hit, then we set the search term and find new frames

@@ -43,3 +43,4 @@ export default function useFrameSearch(query, pageNumber) {
     }, [query, pageNumber])
     return {loading, error, frames, hasMore, total}
 }
+

@@ -83,3 +83,20 @@ export async function deleteFrame(jsonData){
         return error
     }
 }
+
+
+/**
+ * get Tags
+ * @param {} id 
+ * @returns 
+ */
+export async function searchTags(tagSearchTerm){
+    try {
+        const res = await fetch('http://localhost:3001/tags?search='+tagSearchTerm)
+        return await res.json()
+            
+    } catch (error) {
+        console.log('error', error);
+        return []
+    }
+}
