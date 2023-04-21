@@ -100,3 +100,20 @@ export async function searchTags(tagSearchTerm){
         return []
     }
 }
+
+
+/**
+ * get movie frames
+ * @param {} id 
+ * @returns 
+ */
+export async function getMovieFrames(movie,id){
+    try {
+        const res = await fetch('http://localhost:3001/frames/movie?movie='+movie+"&id="+id)
+        return await res.json()
+            
+    } catch (error) {
+        console.log('error', error);
+        return []
+    }
+}

@@ -2,7 +2,8 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import NavBar from '../components/Navbar';
-import { getOneFrame, patchFrames, deleteFrame } from '../services/FrameService';
+import { getOneFrame, patchFrames, deleteFrame, getMovieFrames } from '../services/FrameService';
+import SearchContent from '../components/SearchContent';
 
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
@@ -13,7 +14,23 @@ import Modal from 'react-bootstrap/Modal';
  */
 export default function Frame() {
     const [editMode, setEditMode] = useState(false)
-    const [frame, setFrame] = useState({ movieInfo: {} })
+    const [movieFrames, setMovieFrames] = useState([])
+    const [frame, setFrame] = useState(
+        {
+        "movieInfo": {
+          "title": "",
+          "year": "",
+          "imdb": "",
+          "type": "",
+        },
+        "_id": "",
+        "tags": [
+          "temp",
+        ],
+        "frameURL": "",
+        "uploadDate": "",
+        "updateDate": "",
+      } )
     const { id } = useParams();
 
     const [show, setShow] = useState(false);
@@ -29,6 +46,19 @@ export default function Frame() {
         }
         fetchData();
     }, [id]);
+
+    //once we have a frame, get alternate frames for suggestions
+    useEffect(() => {
+        async function fetchData() {
+            if(frame != undefined){
+                const responseData = await getMovieFrames(frame.movieInfo.title, frame._id);
+                setMovieFrames(responseData);
+            }
+        }
+        fetchData();
+    }, [frame])
+
+    
 
     const handleSubmit = event => {
         event.preventDefault();
@@ -187,12 +217,19 @@ export default function Frame() {
                         </div>
                         <div className="mb-3">
                             <label htmlFor="type" className="form-label">Tags</label>
-                            <textarea class="form-control" id="" rows="3" defaultValue={frame.tags} 
+                            <textarea className="form-control" id="" rows="3" defaultValue={frame.tags} 
                                 onChange={(e) => { let newFrame = frame; newFrame.tags = e.target.value.split(","); setFrame(newFrame) }} >
                             </textarea>
                         </div>
                     </div>
                 }
+            </div>
+
+            <div className="row mt-5">
+                <h4>More Frames from {frame.movieInfo.title}</h4>
+            </div>
+            <div className="row">
+                <SearchContent frames={movieFrames.sort(() => Math.random() - 0.5)}/>
             </div>
         </div>
       <Modal show={show} onHide={handleClose} aria-labelledby="contained-modal-title-vcenter" centered>

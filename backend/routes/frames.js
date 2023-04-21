@@ -38,7 +38,10 @@ router.get('/', async (req, res) => {
     try {
         const page = parseInt(req.query.page) - 1 || 0
         const limit = parseInt(req.query.limit) || 35
-        const search = req.query.search.trim() || ""
+        let search = ""
+        if (req.query.search) {
+            search = req.query.search.trim() 
+        }
         let sort = req.query.sort || "uploadDate"
 
         //sort is passed like this "year,desc" using year as an example
@@ -74,6 +77,30 @@ router.get('/', async (req, res) => {
         console.log(search || "<empty string>", page, num_found);
 
         res.status(200).json(response)
+    } catch (error) {
+        res.status(500).json({ message: error.message })
+    }
+})
+
+
+/**
+ * @name get /movie
+ * finds all frames from movie specified in query
+ * has to be initialized before GET /:id  
+ */
+router.get('/movie', async (req, res) => {
+    try {
+        const title = req.query.movie
+        const frames = await Frame.find().where("movieInfo.title").equals(title).limit(30)
+        if (req.query.id) {
+            const notID = req.query.id
+            frames.forEach(function(item, index, object) {
+                if (item._id.toString() === notID){
+                    object.splice(index, 1);
+                }
+            });
+        }
+        res.status(200).json(frames)
     } catch (error) {
         res.status(500).json({ message: error.message })
     }
@@ -177,7 +204,6 @@ router.delete('/:id', getFrame, async (req, res) => {
         return res.status(500).json({ message: error.message })
     }
 })
-
 
 /**
  * @name getFrame
