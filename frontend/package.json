@@ -11,6 +11,7 @@
     "colorthief": "^2.4.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.2",
+    "react-colorful": "^5.6.1",
     "react-dom": "^18.2.0",
     "react-drag-drop-files": "^2.3.8",
     "react-router-dom": "^6.8.1",
@@ -26,7 +27,6 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
-    
   },
   "eslintConfig": {
     "extends": [
@@ -47,4 +47,3 @@
     ]
   }
 }
-

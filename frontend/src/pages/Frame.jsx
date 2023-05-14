@@ -62,7 +62,7 @@ export default function Frame() {
             }
         }
         fetchData();
-    }, [frame])
+    }, [frame,error])
 
     
 
@@ -91,7 +91,7 @@ export default function Frame() {
     return (<>
         <NavBar />
         <div className="container" style={{ minHeight: '100vh' }}>
-            {error == false? 
+            {error === false? 
             <>
                 <div className="row mt-5">
                     <div className="col-md-12">

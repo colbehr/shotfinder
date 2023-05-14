@@ -1,13 +1,13 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
-import { Swiper, SwiperSlide } from "swiper/react";
+// import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
-import "swiper/css";
-import "swiper/css/navigation";
+// import "swiper/css";
+// import "swiper/css/navigation";
 
 // import required modules
-import { Navigation } from 'swiper';
+// import { Navigation } from 'swiper';
 import UploadSlideContent from './UploadSlideContent';
 
 
@@ -66,19 +66,21 @@ export default function UploadForm3({ files, setUpload3Content, setUpload3Submit
                 <form onSubmit={e => { handleSubmit(e) }}>
                     <div className="row justify-content-md-center">
                         <div className="col-12" >
-                            <Swiper
+                            {/* <Swiper
                                 navigation={true}
                                 modules={[Navigation]}
-                                spaceBetween={50}>
+                                allowTouchMove={false}
+                                simulateTouch={false}
+                                spaceBetween={50}> */}
                                 {frameInfo.map((frame, index) => {
                                     return (
-                                        <SwiperSlide key={index}>
+                                        // <SwiperSlide key={index}>
                                             <UploadSlideContent handleFormChange={handleFormChange} frame={frame} index={index} />
-                                        </SwiperSlide>
+                                        // </SwiperSlide>
                                     )
                                 })}
 
-                            </Swiper>
+                            {/* </Swiper> */}
                         </div>
                     </div>
                     <div className="row justify-content-md-center">
