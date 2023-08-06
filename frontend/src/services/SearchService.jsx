@@ -21,7 +21,7 @@ export default function useFrameSearch(query, pageNumber) {
         setError(false)
         axios({
             method: 'GET',
-            url: "http://localhost:3001/frames/",
+            url: "http://127.0.0.1:3001/frames/",
             params: {
                 search: query,
                 page: pageNumber,
