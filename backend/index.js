@@ -16,17 +16,29 @@ app.use(express.json())
 app.use(cookieParser());
 
 app.use((req, res, next) => {
-    // Website you wish to allow to connect
+    // https://50linesofco.de/post/2017-03-06-cors-a-guided-tour
     // var origin = req.headers.origin; 
-    // console.log(origin);
-    res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:3000');
+    const ALLOWED_ORIGINS = [
+        'http://127.0.0.1:3000',
+        'http://localhost:3000',
+        'http://192.168.1.119:3000'
+    ]
+    console.log(req.headers.origin);
+    if(ALLOWED_ORIGINS.indexOf(req.headers.origin) > -1) {
+        res.set('Access-Control-Allow-Credentials', 'true')
+        res.set('Access-Control-Allow-Origin', req.headers.origin)
+    } else { // allow other origins to make unauthenticated CORS requests
+        res.set('Access-Control-Allow-Origin', '*')        
+    }
+    // res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:3000');
+    // res.setHeader('Access-Control-Allow-Origin', '*');
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     // Request headers you wish to allow
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     // Set to true if you need the website to include cookies in the requests sent
     // to the API (e.g. in case you use sessions)
-    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    // res.setHeader('Access-Control-Allow-Credentials', 'true');
     // Pass to next layer of middleware
     next();
 });

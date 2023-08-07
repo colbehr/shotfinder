@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import NavBar from '../components/Navbar';
 import { getOneFrame, patchFrames, deleteFrame, getMovieFrames } from '../services/FrameService';
 import SearchContent from '../components/SearchContent';
-
+import useVerificationHook from "../services/useVerificationHook";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
@@ -14,6 +14,9 @@ import Modal from 'react-bootstrap/Modal';
  * and data such as tags for the frame. 
  */
 export default function Frame() {
+
+    const { username, logout } = useVerificationHook();
+
     const [editMode, setEditMode] = useState(false)
     const [movieFrames, setMovieFrames] = useState([])
     const [frame, setFrame] = useState(

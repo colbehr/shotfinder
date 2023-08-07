@@ -1,5 +1,5 @@
 
-
+// https://www.freecodecamp.org/news/how-to-secure-your-mern-stack-application/#howtoimplementthebackend
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -22,14 +22,8 @@ const Login = () => {
 
     const handleError = (err) =>
         console.log(err);
-    // toast.error(err, {
-    //   position: "bottom-left",
-    // });
     const handleSuccess = (msg) =>
         console.log(msg);
-    // toast.success(msg, {
-    //   position: "bottom-right",
-    // });
 
     const handleSubmit = async (e) => {
         e.preventDefault();

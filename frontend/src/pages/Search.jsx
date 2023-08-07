@@ -5,6 +5,7 @@ import useFrameSearch from '../services/SearchService';
 // import Split from 'react-split'
 import SearchContent from '../components/SearchContent';
 import NavBar from '../components/Navbar';
+import useVerificationHook from "../services/useVerificationHook";
 
 
 /**
@@ -12,6 +13,7 @@ import NavBar from '../components/Navbar';
  * term or some random files from the db
  */
 export default function Search() {
+    const { username, logout } = useVerificationHook();
 
     const [pageNumber, setPageNumber] = useState(1)
     const [searchTerm, setSearchTerm] = useState("")
