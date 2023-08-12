@@ -31,7 +31,7 @@ body {
   height: 60px;
 }
 
-.nav ul {
+.nav-menu {
   padding: 7px;
   margin: 0;
   list-style: none;
@@ -40,7 +40,7 @@ body {
   height: 100%;
 }
 
-.nav li {
+.nav .nav-menu li {
   background-color: #181A1B;
   border-radius: 10px;
   padding: 5px 12px;
@@ -64,7 +64,7 @@ body {
   color: white;
 }
 
-.nav li:hover {
+.nav-menu li:hover {
   border-radius: 10px;
   background-color: #4a5052;
 }

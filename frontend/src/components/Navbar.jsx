@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import logo from "../assets/logo.svg"
+import UserDropdown from "../components/UserDropdown";
 /**
  * Takes a additional Component, so we can add a searchbar, loading bar, or nothing based on which page we are on.
  * 
@@ -22,7 +23,7 @@ export default function NavBar({ AdditionalComponent }) {
                     <div className="w-100">{AdditionalComponent}</div>
                 </div>
                 <div className="col-2 d-flex justify-content-end">
-                    <ul className="">
+                    <ul className="nav-menu">
                         <li>
                             <NavLink
                                 to="/upload"
@@ -43,6 +44,7 @@ export default function NavBar({ AdditionalComponent }) {
                             </NavLink>
                         </li>
                     </ul>
+                    <UserDropdown></UserDropdown>
                 </div>
             </div>
         </div>

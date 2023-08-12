@@ -23,7 +23,7 @@ app.use((req, res, next) => {
         'http://localhost:3000',
         'http://192.168.1.119:3000'
     ]
-    console.log(req.headers.origin);
+    // console.log(req.headers.origin);
     if(ALLOWED_ORIGINS.indexOf(req.headers.origin) > -1) {
         res.set('Access-Control-Allow-Credentials', 'true')
         res.set('Access-Control-Allow-Origin', req.headers.origin)

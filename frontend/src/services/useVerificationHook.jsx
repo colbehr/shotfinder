@@ -7,6 +7,7 @@ import axios from "axios";
 const useVerificationHook = () => {
   const navigate = useNavigate();
   const [cookies, removeCookie] = useCookies([]);
+  const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
 
   useEffect(() => {
@@ -21,8 +22,9 @@ const useVerificationHook = () => {
         {},
         { withCredentials: true }
       );
-      const { status, user } = data;
+      const { status, user, email } = data;
       setUsername(user);
+      setEmail(email);
       return status
         ? console.log("Logged In")
         : (removeCookie("token"),
@@ -37,7 +39,7 @@ const useVerificationHook = () => {
     navigate("/login");
   };
 
-  return { username, logout };
+  return { email, username, logout };
 };
 
 export default useVerificationHook;
