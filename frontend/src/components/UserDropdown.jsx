@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 import '../assets/Dropdown.css';
 import GradientImage from './GradientImage';
 import useVerificationHook from "../services/useVerificationHook";
@@ -11,7 +12,7 @@ export default function UserDropdown() {
             <li className="dropdown ml-2">
                 <a
                     className="rounded-circle "
-                    href="#"
+                    href="#avatar"
                     role="button"
                     id="dropdownUser"
                     data-toggle="dropdown"
@@ -36,24 +37,23 @@ export default function UserDropdown() {
                         </div>
                     </div>
                     <div className="dropdown-divider"></div>
-                    {/* <div className="">
+                    <div className="">
                         <ul className="list-unstyled">
                             <li>
-                                <a
-                                    className="dropdown-item"
-                                    href="@@webRoot/pages/profile-edit.html"
-                                >
-                                    Collections
+                                <a className="dropdown-item" href="#upload">
+                                    <Link to="/upload">
+                                        Upload New Frames
+                                    </Link>
                                 </a>
                             </li>
-                            <li>
+                            {/* <li>
                                 <a className="dropdown-item" href="#!">
-                                    Settings
+                                    Favorites
                                 </a>
-                            </li> 
+                            </li>  */}
                         </ul>
                     </div>
-                    <div className="dropdown-divider"></div> */}
+                    <div className="dropdown-divider"></div>
                     <ul className="list-unstyled">
                         <li>
                             <a className="dropdown-item" onClick={logout} href='#logout'>
