@@ -36,15 +36,13 @@ export default function UserDropdown() {
                             </div>
                         </div>
                     </div>
-                    <div className="dropdown-divider"></div>
+                    <div className="dropdown-divider my-0"></div>
                     <div className="">
                         <ul className="list-unstyled">
                             <li>
-                                <a className="dropdown-item" href="#upload">
-                                    <Link to="/upload">
-                                        Upload New Frames
-                                    </Link>
-                                </a>
+                                <Link to="/upload"  className="dropdown-item" >
+                                    Upload New Frames
+                                </Link>
                             </li>
                             {/* <li>
                                 <a className="dropdown-item" href="#!">
@@ -53,12 +51,12 @@ export default function UserDropdown() {
                             </li>  */}
                         </ul>
                     </div>
-                    <div className="dropdown-divider"></div>
+                    <div className="dropdown-divider my-0"></div>
                     <ul className="list-unstyled">
                         <li>
-                            <a className="dropdown-item" onClick={logout} href='#logout'>
-                                Sign Out
-                            </a>
+                            <Link to="/login"  className="dropdown-item" onClick={logout}>
+                            Sign Out
+                            </Link>
                         </li>
                     </ul>
                 </div>

@@ -1,5 +1,5 @@
 .dropdown-menu {
-    padding: 0.7rem 0rem;
+    padding: 0.0rem 0rem !important;
     font-size: 0.875rem;
     line-height: 22px;
     color: #5c5776;
@@ -38,13 +38,16 @@
     padding-left: 1rem !important;
     color: initial !important;
     background-color: initial !important;
+    padding: 10px 20px !important 
 }
 
 .dropdown-item:hover {
     color: initial !important;
     background-color: #e6e6e6 !important;
-    border-radius: 0px;
+    border-radius: 0px 0px  0.3rem  0.3rem;
 }
+
+
 .profile-row:hover{
     color: initial !important;
     background-color: initial !important;
