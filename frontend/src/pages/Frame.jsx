@@ -5,7 +5,6 @@ import { useParams } from 'react-router-dom';
 import NavBar from '../components/Navbar';
 import { getOneFrame, patchFrames, deleteFrame, getMovieFrames } from '../services/FrameService';
 import SearchContent from '../components/SearchContent';
-
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
@@ -14,6 +13,8 @@ import Modal from 'react-bootstrap/Modal';
  * and data such as tags for the frame. 
  */
 export default function Frame() {
+
+
     const [editMode, setEditMode] = useState(false)
     const [movieFrames, setMovieFrames] = useState([])
     const [frame, setFrame] = useState(
@@ -62,7 +63,7 @@ export default function Frame() {
             }
         }
         fetchData();
-    }, [frame])
+    }, [frame, error])
 
     
 
@@ -91,7 +92,7 @@ export default function Frame() {
     return (<>
         <NavBar />
         <div className="container" style={{ minHeight: '100vh' }}>
-            {error == false? 
+            {error === false? 
             <>
                 <div className="row mt-5">
                     <div className="col-md-12">

@@ -18,7 +18,7 @@ export default function SearchContent({ frames, loading, error, lastFrameElement
                             key={item._id}
                             lastFrameElementRef={lastFrameElementRef}
                             id={item._id}
-                            url={"http://localhost:3001" + item.frameURL}
+                            url={"http://127.0.0.1:3001" + item.frameURL}
                             filmName={item.movieInfo.title}
                             tags={item.tags} 
                             scale={scale}/>
@@ -27,7 +27,7 @@ export default function SearchContent({ frames, loading, error, lastFrameElement
                     return <SearchedContentItem
                         key={item._id}
                         id={item._id}
-                        url={"http://localhost:3001" + item.frameURL}
+                        url={"http://127.0.0.1:3001" + item.frameURL}
                         filmName={item.movieInfo.title}
                         tags={item.tags} 
                         scale={scale}/>

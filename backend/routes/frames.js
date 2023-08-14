@@ -74,7 +74,7 @@ router.get('/', async (req, res) => {
             limit,
             frames,
         }
-        console.log(search || "<empty string>", page, num_found);
+        console.log(search || "<empty string>", "Page: ", page, "Found:", num_found);
 
         res.status(200).json(response)
     } catch (error) {
