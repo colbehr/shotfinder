@@ -74,6 +74,13 @@ app.use('/login', loginRouter)
 const userVerificationRouter = require('./routes/userVerification.js')
 app.use('/userVerification', userVerificationRouter)
 
+/**
+ * /user REST API route 
+ */
+const userRouter = require('./routes/user')
+app.use('/user', userRouter)
+
+
 
 /**
  * /frames REST API route 

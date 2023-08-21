@@ -24,6 +24,11 @@ const userSchema = new mongoose.Schema({
         required: true,
         default: Date.now
     },
+    favorites: [{ 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'Frame' 
+    }]
+
 });
 // TODO https://heynode.com/blog/2020-04/salt-and-hash-passwords-bcrypt/
 userSchema.pre("save", async function () {
