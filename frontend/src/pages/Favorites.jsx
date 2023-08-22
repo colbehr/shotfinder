@@ -7,17 +7,28 @@ import SearchedContentItem from '../components/SearchedContentItem'
 /**
  */
 export default function Favorites() {
-
     const [scale, setScale] = useState(1)
-    // const [frames, setFrames] = useState([
-    //     {  "_id": {    "$oid": "640ba4e7fc00a649ff73e759"  },  "tags": [    "alien",    "doorway",    "trapped",    "kneeling",    "gun"  ],  "movieInfo": {    "title": "Annihilation",    "year": "2018",    "imdb": "tt2798920",    "type": "Movie",    "director": "Alex Garland",    "cinematographer": "Rob Hardy",    "editor": "Barney Pilling",    "setDesigner": "Mark Digby",    "colorist": "Garry Maddison",    "makeup": "Amie Aspden",    "wardrobe": "Sammy Sheldon"  },  "frameURL": "/uploads/1678484711290-Annihilation (2018) 5.png",  "uploadDate": {    "$date": {      "$numberLong": "1678484711311"    }  },  "updateDate": {    "$date": {      "$numberLong": "1679627954464"    }  },  "__v": 0},
-    //     {  "_id": {    "$oid": "640c26dda09a953e3cb02226"  },  "tags": [    "helicopter",    "military",    "headphones",    "book",    "blue lighting",    "red lighting",    "night"  ],  "movieInfo": {    "title": "Arrival",    "year": "2016",    "imdb": "tt2543164",    "type": "Movie",    "director": "Denis Villeneuve",    "cinematographer": "Bradford Young",    "editor": "Joe Walker",    "setDesigner": "Frédéric Berthiaume-Gabbino ",    "colorist": "Joe Gawler ",    "makeup": "Fríða Aradóttir ",    "wardrobe": "Johanne Baril "  },  "frameURL": "/uploads/1678517981363-Arrival-23048.png",  "uploadDate": {    "$date": {      "$numberLong": "1678517981383"    }  },  "updateDate": {    "$date": {      "$numberLong": "1678517981383"    }  },  "__v": 0}
-    // ])
     const [error, setError] = useState(false)
     const [cookies] = useCookies([]);
-    console.log(cookies.id);
     const [frames, setFrames] = useState([])
 
+    const removeFrame = (id) => {
+        setFrames(frames.filter(frame => frame._id != id))
+    }
+
+    const handleRemoveFavorite = (event, id) => {
+        event.preventDefault();
+        const options = {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body: '{"user_id":"' + cookies.id + '"}'
+        };
+        removeFrame(id)
+        fetch('http://localhost:3001/user/favorite/' + id, options)
+            .then(response => response.json())
+            .catch(err => console.error(err));
+    }
+    
     useEffect(() => {
         document.title = "Shotfinder - Favorites";
         fetch('http://localhost:3001/user/favorites', {
@@ -29,13 +40,10 @@ export default function Favorites() {
         .then(response => setFrames(response))
         .catch(e => {
             setError(true)
-            console.log("Error : ", e)
+            console.log("Error: ", e)
         })
     }, [])
     
-    useEffect(() => {
-        console.log(frames);
-    }, [frames])
     //filter content before display
     return <>
         {/* send setSearchTerm down to the searchbar component  */}
@@ -70,19 +78,31 @@ export default function Favorites() {
             </div>
         </div>
         <div className='container-fluid'>
-        <div className='searchedContentContainer pt-2'>
+        <div className='p-3'>
+        <div className='searchedContentContainer'>
                 {frames?.map((item, index) => {
-                    return <SearchedContentItem
+                    return <>
+                        <a onClick={e => { handleRemoveFavorite(e, item._id) }} className='px-2' href='#'>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-dash-circle" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+                            </svg>
+                        </a>
+                    <SearchedContentItem
                         key={index}
                         id={item._id}
                         url={"http://127.0.0.1:3001" + item.frameURL}
                         filmName={item.movieInfo.title}
                         tags={item.tags} 
                         scale={scale}/>
+
+                        
+                        </>
                 })}
                 {error}
             </div>
             {/* // <SearchContent frames={frames} loading={false} error={false} scale={scale}/> */}
+        </div>
         </div>
 
     </>
