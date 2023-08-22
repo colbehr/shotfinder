@@ -5,9 +5,9 @@ import axios from "axios";
 const Register = () => {
     const navigate = useNavigate();
     const [inputValue, setInputValue] = useState({
-        email: "",
-        password: "",
-        username: "",
+        email: "test@gmail.com",
+        password: "password",
+        username: "Test User",
     });
     const { email, password, username } = inputValue;
     const handleOnChange = (e) => {

@@ -9,6 +9,7 @@ import Test from './pages/Test'
 import Landing from './pages/Landing';
 import { Route, Routes } from 'react-router-dom'
 import Register from './pages/Register';
+import Favorites from './pages/Favorites';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path='/login' element={<Login />}/>
         <Route path='/register' element={<Register/>}/>
         <Route path='/test' element={<Test/>}/>
+        <Route path='/favorites' element={<Favorites/>}/>
       </Routes>
     </div>
   );

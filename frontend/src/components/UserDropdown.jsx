@@ -44,11 +44,11 @@ export default function UserDropdown() {
                                     Upload New Frames
                                 </Link>
                             </li>
-                            {/* <li>
-                                <a className="dropdown-item" href="#!">
+                            <li>
+                                <Link to="/favorites"  className="dropdown-item" >
                                     Favorites
-                                </a>
-                            </li>  */}
+                                </Link>
+                            </li> 
                         </ul>
                     </div>
                     <div className="dropdown-divider my-0"></div>

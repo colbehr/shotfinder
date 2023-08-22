@@ -23,6 +23,10 @@ router.post('/', async (req, res, next) => {
         //  withCredentials: true,
          httpOnly: false,
        });
+       res.cookie("id", user._id, {
+        //  withCredentials: true,
+         httpOnly: false,
+       });
        res.status(201).json({ message: "User logged in successfully", success: true });
        next()
     } catch (error) {
