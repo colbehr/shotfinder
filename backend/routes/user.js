@@ -15,9 +15,7 @@ router.get('/', async (req, res, next) => {
 router.post('/favorites/', async (req, res) => {
     try {
         const userId = req.body.user_id;
-        console.log(req.body.user_id);
         const user = await User.findById(userId).populate('favorites');
-        console.log(user.favorites);
 
         res.status(200).json(user.favorites);
     } catch (error) {

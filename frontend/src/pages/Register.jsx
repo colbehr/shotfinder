@@ -4,6 +4,7 @@ import axios from "axios";
 
 const Register = () => {
     const navigate = useNavigate();
+    const [errorValue, setErrorValue] = useState("")
     const [inputValue, setInputValue] = useState({
         email: "test@gmail.com",
         password: "password",
@@ -18,8 +19,10 @@ const Register = () => {
         });
     };
 
-    const handleError = (err) =>
+    const handleError = (err) =>{
         console.log(err);
+        setErrorValue(err)
+    }
     // toast.error(err, {
     //   position: "bottom-left",
     // });
@@ -93,6 +96,10 @@ const Register = () => {
                         onChange={handleOnChange}
                     />
                 </div>
+                <div className="text-warning">
+                {errorValue}
+                </div>
+
                 <button type="submit">Submit</button>
                 <span>
                     Already have an account? <Link to={"/login"}>Login</Link>

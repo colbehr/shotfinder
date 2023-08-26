@@ -13,6 +13,7 @@ const userSchema = new mongoose.Schema({
     },
     password: {
         type: String,
+        immutable: true,
         required: [true, "Your password is required"],
     },
     createdAt: {
@@ -31,8 +32,9 @@ const userSchema = new mongoose.Schema({
 
 });
 // TODO https://heynode.com/blog/2020-04/salt-and-hash-passwords-bcrypt/
+// TODO passwords are immutable, password change?
 userSchema.pre("save", async function () {
-    this.password = await bcrypt.hash(this.password, 13);
+    this.password = await bcrypt.hash(this.password, 12);
 });
 
 module.exports = mongoose.model("User", userSchema);

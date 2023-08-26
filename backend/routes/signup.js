@@ -15,11 +15,11 @@ router.post('/', async (req, res, next) => {
     const user = await User.create({ email, password, username, createdAt });
     const token = createSecretToken(user._id);
     res.cookie("token", token, {
-      // withCredentials: true,
+      withCredentials: true,
       httpOnly: false,
     });
     res.cookie("id", user._id, {
-      // withCredentials: true,
+      withCredentials: true,
       httpOnly: false,
     });
     res
