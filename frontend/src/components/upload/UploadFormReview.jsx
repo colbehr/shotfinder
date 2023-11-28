@@ -28,7 +28,7 @@ import { postFrames } from '../../services/FrameService';
      }
 */
 
-export default function UploadFormReview({ upload1Content, upload3Content, setUpload4Submitted}) {
+export default function UploadFormReview({ upload1Content, upload2Content, upload3Content, setUpload4Submitted }) {
     const [submissionState, setSubmissionState] = useState([]);
     const [totalFrames, setTotalFrames] = useState(0);
     const [uploadedFrames, setUploadedFrames] = useState(0);
@@ -38,19 +38,33 @@ export default function UploadFormReview({ upload1Content, upload3Content, setUp
     // Fix up json to look nice for the db and display
     //
     // Each frame gets a copy of the movie info (upload1Content)
-    // We merge upload1Content into upload3Content for simplicity
     useEffect(() => {
-        let newState = []
-        // count frames as we go for upload progress bar
-        let numberOfFrames = 0
-        upload3Content.forEach(element => {
-            element["movieInfo"] = upload1Content
-            newState.push(element)
-            numberOfFrames++
-        });
-        setTotalFrames(numberOfFrames)
-        setSubmissionState(newState)
-    }, [upload1Content, upload3Content]);
+        console.log(upload2Content);
+        console.log(upload3Content);
+        let newState = [];
+        // Keep a count of frames to use in the upload progress bar
+        let numberOfFrames = 0;
+
+        for (let i = 0; i < Math.max(upload2Content.length, upload3Content.length); i++) {
+            const frameData = upload3Content[i] || {};
+            const file = upload2Content[i];
+
+            // Combine data from upload1Content, upload2Content, upload3Content
+            const frameInfo = {
+                movieInfo: upload1Content,
+                file: file,
+                ...frameData,
+            };
+
+            newState.push(frameInfo);
+            numberOfFrames++;
+        }
+
+        setTotalFrames(numberOfFrames);
+        setSubmissionState(newState);
+        console.log(submissionState);
+    }, [upload1Content, upload2Content, upload3Content]);
+
 
     //when all frames are uploaded, update the page to display message
     useEffect(() => {
@@ -85,7 +99,7 @@ export default function UploadFormReview({ upload1Content, upload3Content, setUp
                     form_data.append(key, frame[key]);
                 }
             }
-            
+
             // post single frame to frames route
             postFrames(form_data).then((res) => {
                 setUploadedFrames(prevState => prevState + 1);

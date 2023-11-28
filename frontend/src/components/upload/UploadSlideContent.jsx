@@ -1,4 +1,4 @@
-import { useState, createRef } from "react";
+import { useState, useEffect, createRef } from "react";
 import React from 'react'
 import Select from 'react-select'
 import CreatableSelect from 'react-select/creatable';
@@ -6,9 +6,30 @@ import { PopoverPicker } from "../PopoverPicker";
 import ColorThief from "colorthief";
 
 export default function UploadSlideContent({ handleFormChange, frame, index }) {
+
+    const [palette, setPalette] = useState(["#000", "#000", "#000"]);
+    const [shotType, setShotType] = useState("");
+    const [lightingType, setLightingType] = useState([]);
+    const [locationType, setLocationType] = useState("");
     const [timeOfDay, setTimeOfDay] = useState(2);
     const [numberOfPeople, setNumberOfPeople] = useState(2);
-    const [palette, setPalette] = useState(["#000", "#000", "#000"]);
+    const [timePeriod, setTimePeriod] = useState("");
+    const [tags, setTags] = useState([]);
+
+    // useEffect to watch for changes in relevant states and call handleFormChange
+    useEffect(() => {
+        handleFormChange(index, {
+            palette,
+            shotType,
+            lightingType,
+            locationType,
+            timeOfDay,
+            numberOfPeople,
+            timePeriod,
+            tags,
+        });
+    }, [palette, shotType, lightingType, locationType, timeOfDay, numberOfPeople, timePeriod, tags, index]);
+
 
     const imgRef = createRef();
 
@@ -34,6 +55,7 @@ export default function UploadSlideContent({ handleFormChange, frame, index }) {
         { value: "Edge Light", label: "Edge Light" },
         { value: "Silhouette", label: "Silhouette" },
     ]
+
     let TODOptions = [
         { value: 'Twilight', label: 'Twilight' },
         { value: 'Sunrise', label: 'Sunrise' },
@@ -43,8 +65,9 @@ export default function UploadSlideContent({ handleFormChange, frame, index }) {
         { value: 'Blue Hour', label: 'Blue Hour' },
         { value: 'Night', label: 'Night' }
     ]
+
     let peopleNumberOptions = [
-        0, 1, 2, 3, 4, 5,"5+"
+        0, 1, 2, 3, 4, 5, "5+"
     ]
 
     let timePeriodOptions = [
@@ -65,11 +88,12 @@ export default function UploadSlideContent({ handleFormChange, frame, index }) {
         { value: 'Future', label: 'Future' },
         { value: 'Other', label: 'Other' }
     ]
+
     const style = {
         control: base => ({
             ...base,
             border: 0,
-            // This line disable the blue border
+            // This line disables the blue border
             boxShadow: 'none'
 
         })
@@ -93,18 +117,6 @@ export default function UploadSlideContent({ handleFormChange, frame, index }) {
                             </div>
                         </div>
                     </div>
-                    {/* <div className="row justify-content-between">
-                        <label htmlFor="saturation" className="col-sm-2 col-form-label">Saturation</label>
-                        <div className="col-3 text-end">
-                            <code id="saturation">High</code>
-                        </div>
-                    </div>
-                    <div className="row justify-content-between mb-2">
-                        <label htmlFor="contrast" className="col-sm-2 col-form-label">Contrast</label>
-                        <div className="col-3 text-end">
-                            <code id="contrast">High</code>
-                        </div>
-                    </div> */}
 
                     <label htmlFor="">Shot Type</label>
                     <Select
@@ -112,6 +124,7 @@ export default function UploadSlideContent({ handleFormChange, frame, index }) {
                         menuPortalTarget={document.body}
                         options={shotTypeOptions}
                         styles={{ menuPortal: base => ({ ...base, zIndex: 9999 }) }}
+                        onChange={(selectedOption) => setShotType(selectedOption.value)}
                     />
 
                     <label htmlFor="" className="mt-2">Lighting Type</label>
@@ -121,22 +134,23 @@ export default function UploadSlideContent({ handleFormChange, frame, index }) {
                         menuPortalTarget={document.body}
                         options={lightingTypeOptions}
                         styles={{ menuPortal: base => ({ ...base, zIndex: 9999 }) }}
+                        onChange={(selectedOptions) => setLightingType(selectedOptions.map(option => option.value))}
                     />
 
                     <label htmlFor="" className='mt-2'>Interior/Exterior</label><br></br>
                     <div className="btn-group mb-2" role="group" aria-label="Basic radio toggle button group">
-                        <input type="radio" className="btn-check" name={"intExt" + index} id={"int" + index} />
+                        <input type="radio" className="btn-check" name={"intExt" + index} id={"int" + index} onChange={() => setLocationType("Interior")} />
                         <label className="btn btn-outline-primary" htmlFor={"int" + index}>Interior</label>
 
-                        <input type="radio" className="btn-check" name={"intExt" + index} id={"ext" + index} />
+                        <input type="radio" className="btn-check" name={"intExt" + index} id={"ext" + index} onChange={() => setLocationType("Exterior")} />
                         <label className="btn btn-outline-primary" htmlFor={"ext" + index}>Exterior</label>
                     </div><br></br>
 
                     <label htmlFor="customRange2" className='mt-2'>Time of Day: {TODOptions[timeOfDay].value}</label>
-                    <input type="range" className="form-range" min="0" max={TODOptions.length-1} defaultValue={2} onChange={(e) => setTimeOfDay(e.target.value)} id="customRange2"></input>
+                    <input type="range" className="form-range" min="0" max={TODOptions.length - 1} defaultValue={2} onChange={(e) => setTimeOfDay(e.target.value)} id="customRange2"></input>
 
                     <label htmlFor="" className='mt-2'>Number of People: {[peopleNumberOptions[numberOfPeople]]}</label>
-                    <input type="range" className="form-range mb-0" min="0" max={peopleNumberOptions.length-1} defaultValue={2} onChange={(e) => setNumberOfPeople(e.target.value)} id="customRange2"></input>
+                    <input type="range" className="form-range mb-0" min="0" max={peopleNumberOptions.length - 1} defaultValue={2} onChange={(e) => setNumberOfPeople(e.target.value)} id="customRange2"></input>
 
                     <label htmlFor="" className="mt-2">Time Period</label>
                     <Select
@@ -144,6 +158,7 @@ export default function UploadSlideContent({ handleFormChange, frame, index }) {
                         options={timePeriodOptions}
                         menuPortalTarget={document.body}
                         styles={{ menuPortal: base => ({ ...base, zIndex: 9999 }) }}
+                        onChange={(selectedOption) => setTimePeriod(selectedOption.value)}
                     />
                 </div>
                 <div className='col-md-8 col-sm-12  order-md-2 order-sm-1'>
@@ -172,7 +187,7 @@ export default function UploadSlideContent({ handleFormChange, frame, index }) {
                         classNamePrefix="select"
                         isClearable={false}
                         placeholder={'Grass, Close Up, Day'}
-                        // onChange={handleChange}
+                        onChange={(selectedOptions) => setTags(selectedOptions.map(option => option.value))}
                         styles={style}
                         theme={(theme) => ({
                             ...theme,
@@ -182,8 +197,8 @@ export default function UploadSlideContent({ handleFormChange, frame, index }) {
                                 primary: 'black',
                             }
                         })}
-
                     />
+
                 </div>
             </div>
 
@@ -192,4 +207,50 @@ export default function UploadSlideContent({ handleFormChange, frame, index }) {
 
         </div>
     )
+}
+
+
+function RGBToHSL(r, g, b) {
+    // Make r, g, and b fractions of 1
+    r /= 255;
+    g /= 255;
+    b /= 255;
+
+    // Find greatest and smallest channel values
+    let cmin = Math.min(r, g, b),
+        cmax = Math.max(r, g, b),
+        delta = cmax - cmin,
+        h = 0,
+        s = 0,
+        l = 0;
+    // Calculate hue
+    // No difference
+    if (delta == 0)
+        h = 0;
+    // Red is max
+    else if (cmax == r)
+        h = ((g - b) / delta) % 6;
+    // Green is max
+    else if (cmax == g)
+        h = (b - r) / delta + 2;
+    // Blue is max
+    else
+        h = (r - g) / delta + 4;
+
+    h = Math.round(h * 60);
+
+    // Make negative hues positive behind 360°
+    if (h < 0)
+        h += 360;
+    // Calculate lightness
+    l = (cmax + cmin) / 2;
+
+    // Calculate saturation
+    s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
+
+    // Multiply l and s by 100
+    s = +(s * 100).toFixed(1);
+    l = +(l * 100).toFixed(1);
+
+    return "hsl(" + h + "," + s + "%," + l + "%)";
 }

@@ -28,6 +28,7 @@ export default function UploadForm3({ files, setUpload3Content, setUpload3Submit
         { file: "", tags: "" }
     ]);
 
+    const [allFrameInfo, setAllFrameInfo] = useState([]);
     // For each file from form part 2 (files), 
     // Create a new frame and add to frameInfo
     useEffect(() => {
@@ -41,15 +42,18 @@ export default function UploadForm3({ files, setUpload3Content, setUpload3Submit
     }, [files]);
 
 
-    const handleFormChange = (index, event) => {
-        let data = [...frameInfo];
-        data[index][event.target.name] = event.target.value;
-        setFrameInfo(data);
-    }
+
+    const handleFormChange = (index, updatedFrameInfo) => {
+        setAllFrameInfo((prevFrameInfo) => {
+            const newFrameInfo = [...prevFrameInfo];
+            newFrameInfo[index] = updatedFrameInfo;
+            return newFrameInfo;
+        });
+    };
 
     const handleSubmit = event => {
         event.preventDefault();
-        setUpload3Content(frameInfo)
+        setUpload3Content(allFrameInfo)
         console.log("Submit Form 3");
         setUpload3Submitted(true)
     }
@@ -72,13 +76,13 @@ export default function UploadForm3({ files, setUpload3Content, setUpload3Submit
                                 allowTouchMove={false}
                                 simulateTouch={false}
                                 spaceBetween={50}> */}
-                                {frameInfo.map((frame, index) => {
-                                    return (
-                                        // <SwiperSlide key={index}>
-                                            <UploadSlideContent handleFormChange={handleFormChange} frame={frame} index={index} />
-                                        // </SwiperSlide>
-                                    )
-                                })}
+                            {frameInfo.map((frame, index) => {
+                                return (
+                                    // <SwiperSlide key={index}>
+                                    <UploadSlideContent handleFormChange={handleFormChange} frame={frame} index={index} />
+                                    // </SwiperSlide>
+                                )
+                            })}
 
                             {/* </Swiper> */}
                         </div>
