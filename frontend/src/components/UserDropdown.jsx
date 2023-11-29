@@ -2,10 +2,11 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import '../assets/Dropdown.css';
 import GradientImage from './GradientImage';
-import useVerificationHook from "../services/useVerificationHook";
+// import useVerificationHook from "../services/useVerificationHook";
 // https://codepen.io/anitaparmar26/pen/mdExWPZ
 export default function UserDropdown() {
-    const { email, username, logout } = useVerificationHook();
+    // const { email, username, logout } = useVerificationHook();
+    const { email, username, logout } = { email: "test@test.com", username: "Username", logout: () => { } };
 
     return (
         <ul className="list-unstyled profile">
@@ -40,22 +41,22 @@ export default function UserDropdown() {
                     <div className="">
                         <ul className="list-unstyled">
                             <li>
-                                <Link to="/upload"  className="dropdown-item" >
+                                <Link to="/upload" className="dropdown-item" >
                                     Upload New Frames
                                 </Link>
                             </li>
                             <li>
-                                <Link to="/favorites"  className="dropdown-item" >
+                                <Link to="/favorites" className="dropdown-item" >
                                     Favorites
                                 </Link>
-                            </li> 
+                            </li>
                         </ul>
                     </div>
                     <div className="dropdown-divider my-0"></div>
                     <ul className="list-unstyled">
                         <li>
-                            <Link to="/login"  className="dropdown-item" onClick={logout}>
-                            Sign Out
+                            <Link to="/login" className="dropdown-item" onClick={logout}>
+                                Sign Out
                             </Link>
                         </li>
                     </ul>
