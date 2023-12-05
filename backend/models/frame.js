@@ -4,6 +4,9 @@ const frameSchema = new mongoose.Schema({
     tags: [{
         type: String
     }],
+    frameURL: {
+        type: String,
+    },
     movieInfo: {
         title: {
             type: String,
@@ -39,8 +42,33 @@ const frameSchema = new mongoose.Schema({
             type: String,
         },
     },
-    frameURL: {
-        type: String,
+    frameInfo: {
+        palette: {
+            type: String,
+        },
+
+        shotType: {
+            type: String,
+        },
+
+        lightingType: {
+            type: String,
+        },
+
+        locationType: {
+            type: String,
+        },
+
+        timeOfDay: {
+            type: Number,
+        },
+
+        numberOfPeople: {
+            type: Number,
+        },
+        timePeriod: {
+            type: String,
+        },
     },
     uploadDate: {
         type: Date,

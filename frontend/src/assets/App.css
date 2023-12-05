@@ -209,7 +209,6 @@ body {
 } */
 
 .uploadForm3 input {
-  margin: 10px 0;
   width: 100%;
 }
 
@@ -253,6 +252,30 @@ nav .formProgress p:first-child:before {
 .logo{
   filter: invert(50%)  brightness(1000%) ;
 }
+
+
+.picker {
+  position: relative;
+}
+
+.swatch {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  margin-left: auto;
+  /* border: 2px solid #66; */
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.popover {
+  position: absolute;
+  top: calc(100% + 2px);
+  left: 0;
+  border-radius: 9px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
 
 
 .form-signin {
