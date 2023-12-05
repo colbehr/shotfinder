@@ -40,7 +40,7 @@ router.get('/', async (req, res) => {
         const limit = parseInt(req.query.limit) || 35
         let search = ""
         if (req.query.search) {
-            search = req.query.search.trim() 
+            search = req.query.search.trim()
         }
         let sort = req.query.sort || "uploadDate"
 
@@ -94,8 +94,8 @@ router.get('/movie', async (req, res) => {
         const frames = await Frame.find().where("movieInfo.title").equals(title).limit(30)
         if (req.query.id) {
             const notID = req.query.id
-            frames.forEach(function(item, index, object) {
-                if (item._id.toString() === notID){
+            frames.forEach(function (item, index, object) {
+                if (item._id.toString() === notID) {
                     object.splice(index, 1);
                 }
             });
@@ -121,9 +121,10 @@ router.get('/:id', getFrame, (req, res) => {
 router.post('/', upload.single('file'), async (req, res) => {
     //get url 
     //req.protocol + '://' + req.get('host') + 
-    const url = '/' + req.file.path.replace('\\','/');
+    const url = '/' + req.file.path.replace('\\', '/');
     // console.log("Uploaded", req.body);
     let movieInfo = {}
+    let frameInfo = {}
     movieInfo["title"] = req.body.title.trim()
     movieInfo["imdb"] = req.body.imdb.trim()
     movieInfo["year"] = req.body.year.trim()
@@ -134,7 +135,13 @@ router.post('/', upload.single('file'), async (req, res) => {
     movieInfo["setDesigner"] = req.body.setDesigner.trim()
     movieInfo["colorist"] = req.body.colorist.trim()
     movieInfo["makeup"] = req.body.makeup.trim()
-    movieInfo["wardrobe"] = req.body.wardrobe.trim()
+    frameInfo["palette"] = req.body.palette.trim()
+    frameInfo["shotType"] = req.body.shotType.trim()
+    frameInfo["lightingType"] = req.body.lightingType.trim()
+    frameInfo["locationType"] = req.body.locationType.trim()
+    frameInfo["timeOfDay"] = req.body.timeOfDay.trim()
+    frameInfo["numberOfPeople"] = req.body.numberOfPeople.trim()
+    frameInfo["timePeriod"] = req.body.timePeriod.trim()
 
     let tagsFormatted = req.body.tags.split(',')
     tagsFormatted = tagsFormatted.map(tag => tag.trim());
@@ -151,6 +158,7 @@ router.post('/', upload.single('file'), async (req, res) => {
         //movie specific info
         movieInfo: movieInfo,
         //An array of tags
+        frameInfo: frameInfo,
         tags: tagsFormatted,
     });
 
@@ -188,12 +196,12 @@ router.delete('/:id', getFrame, async (req, res) => {
 
     try {
         filepath = path.normalize(process.cwd() + res.frame.frameURL);
-        console.log("DELETE:",filepath);
+        console.log("DELETE:", filepath);
         //remove file 
         fs.unlink(filepath, (err) => {
             if (err) {
-            console.error(err)
-            return
+                console.error(err)
+                return
             }
             //file removed
         })
@@ -246,7 +254,7 @@ async function getFrame(req, res, next) {
 //                   }
 //                 }
 //               );
-            
+
 //         });
 //         res.json(convertedFrames)
 
