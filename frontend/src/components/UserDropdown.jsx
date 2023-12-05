@@ -2,11 +2,11 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import '../assets/Dropdown.css';
 import GradientImage from './GradientImage';
-// import useVerificationHook from "../services/useVerificationHook";
+import useVerificationHook from "../services/useVerificationHook";
 // https://codepen.io/anitaparmar26/pen/mdExWPZ
 export default function UserDropdown() {
-    // const { email, username, logout } = useVerificationHook();
-    const { email, username, logout } = { email: "test@test.com", username: "Username", logout: () => { } };
+    const { email, username, logout } = useVerificationHook();
+    // const { email, username, logout } = { email: "test@test.com", username: "Username", logout: () => { } };
 
     return (
         <ul className="list-unstyled profile">

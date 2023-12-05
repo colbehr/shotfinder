@@ -27,8 +27,8 @@ export default function SearchedContentItem({ id, url, filmName, lastFrameElemen
         const options = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            // body: '{"user_id":"' + cookies.id + '"}'65600c9db210a127be4e0fea
-            body: '{"user_id":"65600c9db210a127be4e0fea"}'
+            body: '{"user_id":"' + cookies.id + '"}'
+            // body: '{"user_id":"65600c9db210a127be4e0fea"}'
         };
 
         fetch('http://localhost:3001/user/favorite/' + id, options)

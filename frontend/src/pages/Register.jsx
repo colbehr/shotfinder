@@ -4,13 +4,13 @@ import axios from "axios";
 
 const Register = () => {
     const navigate = useNavigate();
-    const [errorValue, setErrorValue] = useState("")
+    const [errorValue, setErrorValue] = useState("");
     const [inputValue, setInputValue] = useState({
         email: "test@gmail.com",
         password: "password",
         username: "Test User",
     });
-    const { email, password, username } = inputValue;
+
     const handleOnChange = (e) => {
         const { name, value } = e.target;
         setInputValue({
@@ -21,46 +21,41 @@ const Register = () => {
 
     const handleError = (err) => {
         console.log(err);
-        setErrorValue(err)
-    }
-    // toast.error(err, {
-    //   position: "bottom-left",
-    // });
-    const handleSuccess = (msg) =>
+        setErrorValue(err);
+    };
+
+    const handleSuccess = (msg) => {
         console.log(msg);
-    // toast.success(msg, {
-    //   position: "bottom-right",
-    // });
+        setTimeout(() => navigate("/"), 0);
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
         try {
             const { data } = await axios.post(
                 "http://127.0.0.1:3001/signup",
-                {
-                    ...inputValue,
-                },
+                { ...inputValue },
                 { withCredentials: true }
             );
+
+
+            document.cookie = 'token=' + data.token
+            document.cookie = 'id=' + data.id
+
+            console.log("Cookies from response:", document.cookie);
+            console.log("Data from response:", data);
+
+
             const { success, message } = data;
-            if (success) {
-                handleSuccess(message);
-                setTimeout(() => {
-                    navigate("/");
-                }, 0);
-            } else {
-                handleError(message);
-            }
+            success ? handleSuccess(message) : handleError(message);
         } catch (error) {
             console.log(error);
         }
-        setInputValue({
-            ...inputValue,
-            email: "",
-            password: "",
-            username: "",
-        });
+
+        // setInputValue({ email: "", password: "", username: "" });
     };
+
 
     return (
         <div className="form_container w-100 p-4 d-flex justify-content-center mt-5">
@@ -71,7 +66,7 @@ const Register = () => {
                     <input
                         type="email"
                         name="email"
-                        value={email}
+                        value={inputValue.email}
                         className="form-control"
                         placeholder="Enter your email"
                         onChange={handleOnChange}
@@ -82,7 +77,7 @@ const Register = () => {
                     <input
                         type="text"
                         name="username"
-                        value={username}
+                        value={inputValue.username}
                         className="form-control"
                         placeholder="Enter your username"
                         onChange={handleOnChange}
@@ -93,13 +88,13 @@ const Register = () => {
                     <input
                         type="password"
                         name="password"
-                        value={password}
+                        value={inputValue.password}
                         className="form-control"
                         placeholder="Enter your password"
                         onChange={handleOnChange}
                     />
                 </div>
-                <div className="text-warning">
+                <div className="text-warning mb-4">
                     {errorValue}
                 </div>
 

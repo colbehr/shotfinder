@@ -28,6 +28,7 @@ export default function UploadSlideContent({ handleFormChange, frame, index }) {
             timePeriod,
             tags,
         });
+        // eslint-disable-next-line
     }, [palette, shotType, lightingType, locationType, timeOfDay, numberOfPeople, timePeriod, tags, index]);
 
 

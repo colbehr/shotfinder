@@ -1,70 +1,67 @@
 
-// https://www.freecodecamp.org/news/how-to-secure-your-mern-stack-application/#howtoimplementthebackend
+// https://www.freecodecamp.org/news/how-to-secure-your-mern-stack-application
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Login = () => {
     const navigate = useNavigate();
-    const [inputValue, setInputValue] = useState({ email: "test@gmail.com", password: "password", });
-    // Add a state variable to track the loading status 
+    const [inputValue, setInputValue] = useState({
+        email: "test@gmail.com",
+        password: "password",
+    });
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
-    const { email, password } = inputValue;
+
     const handleOnChange = (e) => {
         const { name, value } = e.target;
-        setInputValue(
-            {
-                ...inputValue,
-                [name]: value,
-            });
+        setInputValue({
+            ...inputValue,
+            [name]: value,
+        });
     };
 
     const handleError = (err) => {
         console.log(err);
-        setError(err)
+        setError(err);
         setLoading(false);
-    }
-    const handleSuccess = (msg) =>
+    };
+
+    const handleSuccess = (msg) => {
         console.log(msg);
+        setTimeout(() => navigate("/search"), 200);
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // Set the loading status to true when the user submits the form
         setLoading(true);
+
         try {
             const { data } = await axios.post(
                 "http://127.0.0.1:3001/login",
-                {
-                    ...inputValue,
-                },
+                { ...inputValue },
                 { withCredentials: true }
             );
-            console.log(data);
-            const { success, message } = data;
-            if (success) {
-                handleSuccess(message);
-                setTimeout(() => {
-                    navigate("/search");
-                }, 200);
-            } else {
-                handleError(message);
-            }
-        } catch (error) {
-            console.log(error);
-        }
-        setInputValue({
-            ...inputValue,
-            email: "",
-            password: "",
-        });
-        // Set the loading status to false when the request is done
 
+            document.cookie = 'token=' + data.token
+            document.cookie = 'id=' + data.id
+
+            console.log("Cookies from response:", document.cookie);
+            console.log("Data from response:", data);
+
+            const { success, message } = data;
+
+            success ? handleSuccess(message) : handleError(message);
+        } catch (error) {
+            console.error(error);
+            handleError("An error occurred during login.");
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
         <div className="form_container w-100 p-4 d-flex justify-content-center pb-4 mt-5">
-            {/* Add a conditional rendering for the spinner component */}
             {loading &&
                 <div className="form-outline mb-4 text-center">
                     <p>Logging in</p>
@@ -80,7 +77,7 @@ const Login = () => {
                         type="email"
                         name="email"
                         id="email"
-                        value={email}
+                        value={inputValue.email}
                         className="form-control"
                         placeholder="Enter your email"
                         onChange={handleOnChange}
@@ -93,7 +90,7 @@ const Login = () => {
                         type="password"
                         id="password"
                         name="password"
-                        value={password}
+                        value={inputValue.password}
                         className="form-control"
                         placeholder="Enter your password"
                         onChange={handleOnChange}
