@@ -28,7 +28,7 @@ export default function UploadSlideContent({ handleFormChange, frame, index }) {
             timePeriod,
             tags,
         });
-    }, [palette, shotType, lightingType, locationType, timeOfDay, numberOfPeople, timePeriod, tags, index, handleFormChange]);
+    }, [palette, shotType, lightingType, locationType, timeOfDay, numberOfPeople, timePeriod, tags, index]);
 
 
     const imgRef = createRef();

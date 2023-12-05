@@ -79,7 +79,7 @@ export default function UploadForm3({ files, setUpload3Content, setUpload3Submit
                             {frameInfo.map((frame, index) => {
                                 return (
                                     // <SwiperSlide key={index}>
-                                    <UploadSlideContent handleFormChange={handleFormChange} frame={frame} index={index} />
+                                    <UploadSlideContent handleFormChange={handleFormChange} frame={frame} index={index} key={index} />
                                     // </SwiperSlide>
                                 )
                             })}
