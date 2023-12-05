@@ -19,7 +19,7 @@ const Register = () => {
         });
     };
 
-    const handleError = (err) =>{
+    const handleError = (err) => {
         console.log(err);
         setErrorValue(err)
     }
@@ -63,47 +63,50 @@ const Register = () => {
     };
 
     return (
-        <div className="form_container">
-            <h2>Signup Account</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="email">Email</label>
+        <div className="form_container w-100 p-4 d-flex justify-content-center mt-5">
+            <form onSubmit={handleSubmit} style={{ width: 22 + "rem" }}>
+                <h2 className="mb-4">Register</h2>
+                <div className="form-outline mb-2">
+                    <label className="form-label" htmlFor="email">Email</label>
                     <input
                         type="email"
                         name="email"
                         value={email}
+                        className="form-control"
                         placeholder="Enter your email"
                         onChange={handleOnChange}
                     />
                 </div>
-                <div>
-                    <label htmlFor="email">Username</label>
+                <div className="form-outline mb-2">
+                    <label className="form-label" htmlFor="email">Username</label>
                     <input
                         type="text"
                         name="username"
                         value={username}
+                        className="form-control"
                         placeholder="Enter your username"
                         onChange={handleOnChange}
                     />
                 </div>
-                <div>
-                    <label htmlFor="password">Password</label>
+                <div className="form-outline mb-4">
+                    <label className="form-label" htmlFor="password">Password</label>
                     <input
                         type="password"
                         name="password"
                         value={password}
+                        className="form-control"
                         placeholder="Enter your password"
                         onChange={handleOnChange}
                     />
                 </div>
                 <div className="text-warning">
-                {errorValue}
+                    {errorValue}
                 </div>
 
-                <button type="submit">Submit</button>
-                <span>
+                <button type="submit" className="btn btn-primary btn-block mb-4">Submit</button>
+                <div className="text-center">
                     Already have an account? <Link to={"/login"}>Login</Link>
-                </span>
+                </div>
             </form>
         </div>
     );

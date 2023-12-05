@@ -73,6 +73,8 @@ const Login = () => {
             }
             {!loading && <form style={{ width: 22 + "rem" }} onSubmit={handleSubmit}>
                 <div className="form-outline mb-4">
+                    <h2 className="mb-4">Login</h2>
+
                     <label className="form-label" htmlFor="email">Email address</label>
                     <input
                         type="email"
