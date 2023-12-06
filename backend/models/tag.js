@@ -1,8 +1,10 @@
 const mongoose = require("mongoose");
 
 const tagSchema = new mongoose.Schema({
-    tag:{
-        type: String
+    tag: {
+        type: String,
+        unique: true,
+        index: true, // Add an index for performance
     },
     uploadDate: {
         type: Date,

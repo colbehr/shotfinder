@@ -3,48 +3,83 @@ const router = express.Router()
 const Tag = require('../models/tag')
 
 
+// /tags
+//     GET     - Retrieve filtered tags
+//     POST    - Create a new tag
+
+// /tags/{tagId}
+//     GET     - Retrieve details of a specific tag
+//     PUT     - Update details of a specific tag
+//     DELETE  - Delete a specific tag
+
 /**
- * @name get /
+ * @name GET /
  * get a set of tags, will use search term or give back random set *most of the time
  * https://www.youtube.com/watch?v=0T4GsMYnVN4
  */
 router.get('/', async (req, res) => {
     try {
-        let search = req.query.search || ""
-        let limit = 7
-        if (search == "undefined") {
-            search = ""
-        }
-        // regex "starts with" search
-        // then search with 'starts with' regex 
-        // or 'anywhere' regex, leave in that order
-        const tags = await Tag.find(
-            search.length > 0 ?
-            { $or:[ 
-            { "tag": {$regex: "^"+search, $options: "i"} },
-            { "tag": {$regex: search} }]} : {}
-        ).limit(limit).select('tag -_id')
+        const search = req.query.search || '';
+        const limit = 7;
 
-        res.json(tags.sort((a, b) => compareFn(a, b, search)))
+        let query = {};
+        let tags = []
+        if (search.length > 0) {
+            query = {
+                $or: [
+                    { "tag": { $regex: `^${search}`, $options: "i" } },
+                    { "tag": new RegExp(search, 'i') }
+                ]
+            };
+            tags = await Tag.find(query).limit(limit);
+        } else {
+            // If search is empty, fetch random tags
+            tags = await Tag.aggregate([{ $sample: { size: limit } }]);
+        }
+
+        tags = tags.map(tag => ({ tag: tag.tag }))
+        res.json(tags.sort((a, b) => compareFn(a, b, search)));
     } catch (error) {
-        res.status(500).json({ message: error.message })
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
     }
-})
+});
+
 
 /**
- * @name post /
+ * @name GET /:id
+ * Get a single tag and associated data
+ */
+router.get('/:id', async (req, res) => {
+    try {
+        const tagID = req.params.id;
+        const tag = await Tag.findById(tagID);
+
+        if (!tag) {
+            return res.status(404).json({ message: 'Tag not found' });
+        }
+
+        res.status(200).json(tag);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+
+/**
+ * @name POST /
  * Accepts a single tag string, posts to database and uploads 
  */
 router.post('/', async (req, res) => {
-        let response =  postTag(req.body.tag, res)
-        res.json(response)
+    let response = postTag(req.body.tag, res)
+    res.json(response)
 })
 
 /**
  * @name postTag
  * Has to be seperated in case we want to call the function from frames.js when posting a frame
  */
-async function postTag(userTag, res){
+async function postTag(userTag, res) {
     console.log(userTag);
     if (userTag) {
         userTag = userTag.trim();
@@ -64,6 +99,49 @@ async function postTag(userTag, res){
         return { message: "Submit a tag" }
     }
 }
+
+
+/**
+ * @name PUT /
+ * Update a tag, automatically updates updateDate
+ */
+router.put('/:id', async (req, res) => {
+    try {
+        const tagID = req.params.id;
+
+        //update updateDate
+        req.body.updateDate = new Date();
+
+        const updatedTag = await Tag.findByIdAndUpdate(tagID, req.body, { new: true });
+
+        if (!updatedTag) {
+            return res.status(404).json({ message: 'Tag not found' });
+        }
+
+        res.status(200).json(updatedTag);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+/**
+ * @name DELETE /
+ * Update a tag, automatically updates updateDate
+ */
+router.delete('/:id', async (req, res) => {
+    try {
+        const tagID = req.params.id;
+        const deletedTag = await Tag.findByIdAndDelete(tagID);
+
+        if (!deletedTag) {
+            return res.status(404).json({ message: 'Tag not found' });
+        }
+
+        res.status(200).json({ message: 'Tag deleted successfully' });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
 
 // compare function that keeps strings that match at the start at the front
 function compareFn(a, b, searchTerm) {
